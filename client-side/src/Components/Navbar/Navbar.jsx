@@ -1,5 +1,6 @@
 import React from "react";
 import "./Navbar.css";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -14,9 +15,11 @@ function Navbar() {
   return (
     <div className="navbar">
       <div className="navbar-Wrapper">
-        <div className="navbar-Wrapper-Left">
-          <h1 className="navbar-Left-Logo">Logo</h1>
-        </div>
+        <Link to="/" className="links">
+          <div className="navbar-Wrapper-Left">
+            <h1 className="navbar-Left-Logo">Logo</h1>
+          </div>
+        </Link>
         <div className="navbar-Wrapper-Right">
           <div className="navbar-Right-Avatar">
             <span className="username">{user?.firstName}</span>

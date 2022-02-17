@@ -17,6 +17,10 @@
   margin-top: -20px;
 }
 
+.navbar-Wrapper-Left {
+  cursor: pointer;
+}
+
 .navbar-Wrapper-Right {
   display: flex;
   align-items: center;
