@@ -3,6 +3,13 @@
   height: 100vh;
   width: 100vw;
   margin-top: 70px;
+  position: relative;
+}
+
+.productDetails-wrapper.blur {
+  filter: blur(3px);
+  -webkit-filter: blur(3px);
+  opacity: 0.9;
 }
 
 .left-side {
@@ -68,4 +75,57 @@
 
 .auto-bidding {
   margin-top: 20px;
+}
+
+.input-amount-field {
+  position: absolute;
+  left: 300px;
+  top: 150px;
+  z-index: 999;
+  width: 450px;
+  height: 400px;
+  background-color: rgb(219, 221, 221);
+}
+
+.close-amount-field {
+  position: absolute;
+  top: -28px;
+  left: -28px;
+  color: red;
+  cursor: pointer;
+}
+
+.input-amount-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.required-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.required-input {
+  width: 300px;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  margin-top: 15px;
+  font-size: 16px;
+}
+
+.submitFields {
+  margin-top: 30px;
+  width: 320px;
+  padding: 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: rgb(71, 70, 70);
+  color: white;
 }

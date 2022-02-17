@@ -21,6 +21,9 @@ function Login() {
       password: "",
       firstName: "",
       lastName: "",
+      budget: 20000,
+      autoBid: false,
+      notifyAt: "50%",
     },
     onSubmit: (values) => {
       setLoading(true);
