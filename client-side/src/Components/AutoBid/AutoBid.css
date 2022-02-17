@@ -1,0 +1,104 @@
+.auto-bid-container {
+  margin-top: 100px;
+  height: 100vh;
+  width: 100vw;
+}
+
+.auto-bid-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-left: 50px;
+}
+
+.auto-bid-config-titles {
+  display: flex;
+  flex-direction: column;
+}
+
+.auto-bid-settings {
+  font-size: 8px;
+  opacity: 0.6;
+}
+
+.configure-auto-bid {
+  margin-top: -5px;
+}
+
+.bid-amount-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.maximum-bid-warning {
+  max-width: 250;
+  margin-top: -12px;
+}
+
+.auto-bid-input {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.currency {
+  position: absolute;
+  left: 15px;
+  z-index: 2;
+}
+
+.auto-bid-input-amt {
+  width: 150px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(190, 188, 188);
+  outline: none;
+  text-align: center;
+  margin-top: -10px;
+}
+
+.bid-alert-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.get-notification {
+  margin-top: -12px;
+}
+
+.notification-input {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  position: relative;
+}
+
+.percentage {
+  position: absolute;
+  left: 125px;
+  z-index: 2;
+}
+
+.notification-reserved-bids {
+  width: 150px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(190, 188, 188);
+  outline: none;
+  text-align: center;
+}
+
+.save-configuration {
+  margin-top: 50px;
+  width: 220px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(126, 123, 123);
+  color: white;
+  outline: none;
+  cursor: pointer;
+}

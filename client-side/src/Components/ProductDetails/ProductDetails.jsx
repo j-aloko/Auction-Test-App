@@ -1,5 +1,6 @@
 import React from "react";
 import "./ProductDetails.css";
+import { Link } from "react-router-dom";
 
 function ProductDetails() {
   return (
@@ -36,9 +37,11 @@ function ProductDetails() {
           <label for="autobid">
             {" "}
             Activate the{" "}
-            <b className="auto-bidding-bold">
-              <u>auto bidding</u>
-            </b>
+            <Link to="/config-auto-bid" className="links">
+              <b className="auto-bidding-bold" syle={{ cursor: "pointer" }}>
+                <u>auto bidding</u>
+              </b>
+            </Link>
           </label>
           <br />
         </div>
