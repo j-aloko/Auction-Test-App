@@ -59,6 +59,13 @@ function Sidebar() {
               <span className="checkmark"></span>
             </label>
           </li>
+          <li className="category-list">
+            <label className="container">
+              Category 05
+              <input type="checkbox" />
+              <span className="checkmark"></span>
+            </label>
+          </li>
         </ul>
       </div>
     </div>

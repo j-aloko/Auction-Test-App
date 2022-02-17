@@ -1,8 +1,49 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./ProductDetails.css";
 import { Link } from "react-router-dom";
 
 function ProductDetails() {
+  // Implementing count down for each listed Item with hooks
+
+  const [day, setDay] = useState("00");
+  const [hour, setHour] = useState("00");
+  const [minute, setMinute] = useState("00");
+  const [second, setSecond] = useState("00");
+
+  let interval = useRef();
+
+  const initiateTimer = () => {
+    const countDownDate = new Date("May 30, 2022 00:00:00").getTime(); //date auction stops
+
+    interval = setInterval(() => {
+      const currentTime = new Date().getTime();
+      const distance = countDownDate - currentTime; // number of days till the auction stops
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      if (distance < 0) {
+        //stop timer
+        clearInterval(interval.current);
+      } else {
+        //update timer
+        setDay(days);
+        setHour(hours);
+        setMinute(minutes);
+        setSecond(seconds);
+      }
+    }, 1000);
+  };
+
+  //initiate timer whenever this component mounts
+
+  useEffect(() => {
+    initiateTimer(); //call initiateTimer function
+  }, []);
+
   return (
     <div className="productDetails-wrapper">
       <div className="left-side">
@@ -16,10 +57,6 @@ function ProductDetails() {
           leo vel tempus laoreet. Aenean sed ultricies turpis, ac mollis urna.
           Sed malesuada, ex a sodales consectetur, mauris eros malesuada tellus,
           nec iaculis nulla magna ut nibh. Nam sed aliquam turpis, sit amet
-          pretium ipsum. Praesent a urna odio. Proin dictum facilisis rhoncus.
-          Sed malesuada, ex a sodales consectetur, mauris eros malesuada tellus,
-          nec iaculis nulla magna ut nibh. Nam sed aliquam turpis, sit amet
-          pretium ipsum. Praesent a urna odio. Proin dictum facilisis rhoncus.
         </p>
         <div className="count-down">
           <div className="last-bid">
@@ -28,13 +65,15 @@ function ProductDetails() {
           </div>
           <div className="time-limit">
             <h4 className="available-until">Available until</h4>
-            <span className="exact-time">2:30:15</span>
+            <span className="exact-time">
+              {day} : {hour} : {minute} : {second}
+            </span>
           </div>
         </div>
         <button className="place-bid">Place a bid</button>
         <div className="auto-bidding">
           <input type="checkbox" id="autobid" name="autobid" value="Yes" />
-          <label for="autobid">
+          <label htmlFor="autobid">
             {" "}
             Activate the{" "}
             <Link to="/config-auto-bid" className="links">

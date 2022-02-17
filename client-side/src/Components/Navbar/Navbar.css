@@ -20,6 +20,7 @@
 .navbar-Wrapper-Right {
   display: flex;
   align-items: center;
+  margin-top: 15px;
 }
 
 .user-img {
