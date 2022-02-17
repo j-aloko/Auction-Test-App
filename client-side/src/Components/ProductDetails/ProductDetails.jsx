@@ -7,43 +7,51 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
 //Timer implementation
 
-const minuteSeconds = 60;
-const hourSeconds = 3600;
-const daySeconds = 86400;
-
-const timerProps = {
-  isPlaying: true,
-  size: 50,
-  strokeWidth: 2,
-};
-
-const renderTime = (dimension, time) => {
-  return (
-    <div className="time-wrapper">
-      <div className="time">{time}</div>
-      <div>{dimension}</div>
-    </div>
-  );
-};
-
-const getTimeSeconds = (time) => (minuteSeconds - time) | 0;
-const getTimeMinutes = (time) => ((time % hourSeconds) / minuteSeconds) | 0;
-const getTimeHours = (time) => ((time % daySeconds) / hourSeconds) | 0;
-const getTimeDays = (time) => (time / daySeconds) | 0;
-
 function ProductDetails() {
   const [product, setProduct] = useState({});
   const [currentbid, setCurrentBid] = useState({});
+  const [endDate, setEndDate] = useState(100000);
   const [displayAmountInput, setDisplayAmountInput] = useState(false);
   const [disable, setDisable] = useState(false);
   const user = JSON.parse(localStorage.getItem("user")); //get user credentials from localStorage
   const [bidder, setBidder] = useState({ fullname: user?.fullname });
 
   //Timer Implementation
-  const stratTime = Date.now() / 1000; // use UNIX timestamp in seconds
-  const endTime = stratTime + 243248; // use UNIX timestamp in seconds
 
-  const remainingTime = endTime - stratTime;
+  useEffect(() => {
+    setTimeout(() => {
+      setEndDate(product?.endDate);
+    }, 200);
+  }, [product?.endDate]);
+
+  const minuteSeconds = 60;
+  const hourSeconds = 3600;
+  const daySeconds = 86400;
+
+  const timerProps = {
+    isPlaying: true,
+    size: 50,
+    strokeWidth: 2,
+  };
+
+  const renderTime = (dimension, time) => {
+    return (
+      <div className="time-wrapper">
+        <div className="time">{time}</div>
+        <div>{dimension}</div>
+      </div>
+    );
+  };
+
+  const getTimeSeconds = (time) => (minuteSeconds - time) | 0;
+  const getTimeMinutes = (time) => ((time % hourSeconds) / minuteSeconds) | 0;
+  const getTimeHours = (time) => ((time % daySeconds) / hourSeconds) | 0;
+  const getTimeDays = (time) => (time / daySeconds) | 0;
+
+  const startTime = Date.now() / 1000; // use UNIX timestamp in seconds
+  const endTime = startTime + endDate; // use UNIX timestamp in seconds
+
+  const remainingTime = endTime - startTime;
   const days = Math.ceil(remainingTime / daySeconds);
   const daysDuration = days * daySeconds;
 
@@ -118,7 +126,7 @@ function ProductDetails() {
                   initialRemainingTime={remainingTime}
                 >
                   {({ elapsedTime, color }) => (
-                    <span style={{ color, marginRight: "5px" }}>
+                    <span style={{ color }}>
                       {renderTime(
                         daysDuration > 1 ? "days" : "day",
                         getTimeDays(daysDuration - elapsedTime)
