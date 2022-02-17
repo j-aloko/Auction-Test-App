@@ -1,24 +1,3 @@
-export const users = [
-  {
-    id: 1,
-    firstName: "Jon",
-    lastName: "Snow",
-    email: "jonsnow@gmail.com",
-    location: "Ghana",
-    totalbids: 3,
-    bidsWon: 1,
-  },
-  {
-    id: 2,
-    firstName: "Jon",
-    lastName: "Snow",
-    email: "jonsnow@gmail.com",
-    location: "Ghana",
-    totalbids: 3,
-    bidsWon: 1,
-  },
-];
-
 export const products = [
   {
     id: 1,
@@ -28,18 +7,16 @@ export const products = [
     description:
       "built between the time period of 1919 and 1930. Whereas, some consider the time period to be 1919 to 1925. However, unlike antique cars and classic cars, the vintage cars do not lose their value in case they are modified",
     currentBid: 150000,
-    endDate: "February 22, 2022 00:00:00",
+    endDate: 345600,
     bidders: [
       {
-        firstName: "Jon ",
-        lastName: "Snow",
+        fullname: "jon snow",
         amount: 160000,
         budget: 200000,
         autoBid: false,
       },
       {
-        firstName: "jane",
-        lastName: "snow",
+        fullname: "jane doe",
         amount: 160000,
         budget: 200000,
         autoBid: false,
@@ -54,18 +31,16 @@ export const products = [
     description:
       "built between the time period of 1919 and 1930. Whereas, some consider the time period to be 1919 to 1925. However, unlike antique cars and classic cars, the vintage cars do not lose their value in case they are modified",
     currentBid: 150000,
-    endDate: "February 22, 2022 00:00:00",
+    endDate: 259200,
     bidders: [
       {
-        firstName: "Jon ",
-        lastName: "Snow",
+        fullname: "jon snow",
         amount: 160000,
         budget: 200000,
         autoBid: false,
       },
       {
-        firstName: "jane",
-        lastName: "snow",
+        fullname: "jane doe",
         amount: 160000,
         budget: 200000,
         autoBid: false,
@@ -80,18 +55,16 @@ export const products = [
     description:
       "built between the time period of 1919 and 1930. Whereas, some consider the time period to be 1919 to 1925. However, unlike antique cars and classic cars, the vintage cars do not lose their value in case they are modified",
     currentBid: 150000,
-    endDate: "February 22, 2022 00:00:00",
+    endDate: 259200,
     bidders: [
       {
-        firstName: "Jon ",
-        lastName: "Snow",
+        fullname: "jon snow",
         amount: 160000,
         budget: 200000,
         autoBid: false,
       },
       {
-        firstName: "jane",
-        lastName: "snow",
+        fullname: "jane doe",
         amount: 160000,
         budget: 200000,
         autoBid: false,
@@ -106,18 +79,16 @@ export const products = [
     description:
       "built between the time period of 1919 and 1930. Whereas, some consider the time period to be 1919 to 1925. However, unlike antique cars and classic cars, the vintage cars do not lose their value in case they are modified",
     currentBid: 150000,
-    endDate: "February 22, 2022 00:00:00",
+    endDate: 345600,
     bidders: [
       {
-        firstName: "Jon ",
-        lastName: "Snow",
+        fullname: "jon snow",
         amount: 160000,
         budget: 200000,
         autoBid: false,
       },
       {
-        firstName: "jane",
-        lastName: "snow",
+        fullname: "jane doe",
         amount: 160000,
         budget: 200000,
         autoBid: false,
@@ -132,18 +103,16 @@ export const products = [
     description:
       "built between the time period of 1919 and 1930. Whereas, some consider the time period to be 1919 to 1925. However, unlike antique cars and classic cars, the vintage cars do not lose their value in case they are modified",
     currentBid: 150000,
-    endDate: "February 22, 2022 00:00:00",
+    endDate: 172800,
     bidders: [
       {
-        firstName: "Jon ",
-        lastName: "Snow",
+        fullname: "jon snow",
         amount: 160000,
         budget: 200000,
         autoBid: false,
       },
       {
-        firstName: "jane",
-        lastName: "snow",
+        fullname: "jane doe",
         amount: 160000,
         budget: 200000,
         autoBid: false,
@@ -158,18 +127,16 @@ export const products = [
     description:
       "built between the time period of 1919 and 1930. Whereas, some consider the time period to be 1919 to 1925. However, unlike antique cars and classic cars, the vintage cars do not lose their value in case they are modified",
     currentBid: 150000,
-    endDate: "February 22, 2022 00:00:00",
+    endDate: 172800,
     bidders: [
       {
-        firstName: "Jon ",
-        lastName: "Snow",
+        fullname: "jon snow",
         amount: 160000,
         budget: 200000,
         autoBid: false,
       },
       {
-        firstName: "jane",
-        lastName: "snow",
+        fullname: "jane doe",
         amount: 160000,
         budget: 200000,
         autoBid: false,
@@ -184,18 +151,16 @@ export const products = [
     description:
       "built between the time period of 1919 and 1930. Whereas, some consider the time period to be 1919 to 1925. However, unlike antique cars and classic cars, the vintage cars do not lose their value in case they are modified",
     currentBid: 150000,
-    endDate: "February 22, 2022 00:00:00",
+    endDate: 172800,
     bidders: [
       {
-        firstName: "Jon ",
-        lastName: "Snow",
+        fullname: "jon snow",
         amount: 160000,
         budget: 200000,
         autoBid: false,
       },
       {
-        firstName: "jane",
-        lastName: "snow",
+        fullname: "jane doe",
         amount: 160000,
         budget: 200000,
         autoBid: false,
@@ -210,18 +175,16 @@ export const products = [
     description:
       "built between the time period of 1919 and 1930. Whereas, some consider the time period to be 1919 to 1925. However, unlike antique cars and classic cars, the vintage cars do not lose their value in case they are modified",
     currentBid: 150000,
-    endDate: "February 22, 2022 00:00:00",
+    endDate: 129600,
     bidders: [
       {
-        firstName: "Jon ",
-        lastName: "Snow",
+        fullname: "jon snow",
         amount: 160000,
         budget: 200000,
         autoBid: false,
       },
       {
-        firstName: "jane",
-        lastName: "snow",
+        fullname: "jane doe",
         amount: 160000,
         budget: 200000,
         autoBid: false,
@@ -236,18 +199,16 @@ export const products = [
     description:
       "built between the time period of 1919 and 1930. Whereas, some consider the time period to be 1919 to 1925. However, unlike antique cars and classic cars, the vintage cars do not lose their value in case they are modified",
     currentBid: 150000,
-    endDate: "February 22, 2022 00:00:00",
+    endDate: 129600,
     bidders: [
       {
-        firstName: "Jon ",
-        lastName: "Snow",
+        fullname: "jon snow",
         amount: 160000,
         budget: 200000,
         autoBid: false,
       },
       {
-        firstName: "jane",
-        lastName: "snow",
+        fullname: "jane doe",
         amount: 160000,
         budget: 200000,
         autoBid: false,
@@ -262,18 +223,16 @@ export const products = [
     description:
       "built between the time period of 1919 and 1930. Whereas, some consider the time period to be 1919 to 1925. However, unlike antique cars and classic cars, the vintage cars do not lose their value in case they are modified",
     currentBid: 150000,
-    endDate: "February 22, 2022 00:00:00",
+    endDate: 202400,
     bidders: [
       {
-        firstName: "Jon ",
-        lastName: "Snow",
+        fullname: "jon snow",
         amount: 160000,
         budget: 200000,
         autoBid: false,
       },
       {
-        firstName: "jane",
-        lastName: "snow",
+        fullname: "jane doe",
         amount: 160000,
         budget: 200000,
         autoBid: false,
@@ -288,18 +247,16 @@ export const products = [
     description:
       "built between the time period of 1919 and 1930. Whereas, some consider the time period to be 1919 to 1925. However, unlike antique cars and classic cars, the vintage cars do not lose their value in case they are modified",
     currentBid: 150000,
-    endDate: "February 22, 2022 00:00:00",
+    endDate: 202400,
     bidders: [
       {
-        firstName: "Jon ",
-        lastName: "Snow",
+        fullname: "jon snow",
         amount: 160000,
         budget: 200000,
         autoBid: false,
       },
       {
-        firstName: "jane",
-        lastName: "snow",
+        fullname: "jane doe",
         amount: 160000,
         budget: 200000,
         autoBid: false,
@@ -314,18 +271,16 @@ export const products = [
     description:
       "built between the time period of 1919 and 1930. Whereas, some consider the time period to be 1919 to 1925. However, unlike antique cars and classic cars, the vintage cars do not lose their value in case they are modified",
     currentBid: 150000,
-    endDate: "February 22, 2022 00:00:00",
+    endDate: 159300,
     bidders: [
       {
-        firstName: "Jon ",
-        lastName: "Snow",
+        fullname: "jon snow",
         amount: 160000,
         budget: 200000,
         autoBid: false,
       },
       {
-        firstName: "jane",
-        lastName: "snow",
+        fullname: "jane doe",
         amount: 160000,
         budget: 200000,
         autoBid: false,

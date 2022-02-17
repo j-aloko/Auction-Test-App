@@ -3,17 +3,20 @@ import "./ProductDetails.css";
 import { Link, useLocation } from "react-router-dom";
 import { products } from "../../DummyData";
 import CloseIcon from "@mui/icons-material/Close";
+import Countdown from "react-countdown";
 
 function ProductDetails() {
-  const [day, setDay] = useState("00");
-  const [hour, setHour] = useState("00");
-  const [minute, setMinute] = useState("00");
-  const [second, setSecond] = useState("00");
   const [product, setProduct] = useState({});
   const [currentbid, setCurrentBid] = useState({});
   const [displayAmountInput, setDisplayAmountInput] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+  const [disable, setDisable] = useState(false);
+
+  //on Completion of countdown
+  const handleComplete = () => {
+    setDisable(true);
+  };
 
   // persisting product data across this component
   //We start off by accessing the product id in the window url of this location
@@ -34,42 +37,6 @@ function ProductDetails() {
       setCurrentBid(product?.bidders.reverse()[0]); //reverse the array of bidders and grab the first index
     }
   }, [product?.bidders]);
-
-  // Implementing count down for each listed Item with hooks
-
-  let interval = useRef();
-
-  const initiateTimer = () => {
-    const countDownDate = new Date("May 30, 2022 00:00:00").getTime(); //date auction stops
-
-    interval = setInterval(() => {
-      const currentTime = new Date().getTime();
-      const distance = countDownDate - currentTime; // number of days till the auction stops
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor(
-        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-      );
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      if (distance < 0) {
-        //stop timer
-        clearInterval(interval.current);
-      } else {
-        //update timer
-        setDay(days);
-        setHour(hours);
-        setMinute(minutes);
-        setSecond(seconds);
-      }
-    }, 1000);
-  };
-
-  //initiate timer whenever this component mounts
-
-  useEffect(() => {
-    initiateTimer(); //call initiateTimer function
-  }, []);
 
   //Place a bid
 
@@ -95,7 +62,7 @@ function ProductDetails() {
         <div className="right-side">
           <h1 className="product-title">{product?.title}</h1>
           <span className="minimum-bid-amount">
-            Minimum bid ${product?.minimumBid}
+            Minimum bid <b>${product?.minimumBid}</b>
           </span>
           <p className="product-detail-description">{product?.description}</p>
           <div className="count-down">
@@ -106,11 +73,18 @@ function ProductDetails() {
             <div className="time-limit">
               <h4 className="available-until">Available until</h4>
               <span className="exact-time">
-                {day} : {hour} : {minute} : {second}
+                {disable ? (
+                  <span className="end">Auction has ended</span>
+                ) : (
+                  <Countdown
+                    date={Date.now() + 256200 * 1000}
+                    onComplete={handleComplete}
+                  />
+                )}
               </span>
             </div>
           </div>
-          <button className="place-bid" onClick={handleBid}>
+          <button className="place-bid" onClick={handleBid} disabled={disable}>
             Place a bid
           </button>
           <div className="auto-bidding">

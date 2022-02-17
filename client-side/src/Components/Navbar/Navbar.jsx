@@ -22,7 +22,7 @@ function Navbar() {
         </Link>
         <div className="navbar-Wrapper-Right">
           <div className="navbar-Right-Avatar">
-            <span className="username">{user?.firstName}</span>
+            <span className="username">{user?.fullname}</span>
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
               alt=""

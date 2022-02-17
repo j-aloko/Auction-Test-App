@@ -8,8 +8,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 const validationSchema = Yup.object({
   email: Yup.string().email().required("Please Enter your Email"),
   password: Yup.string().required("Please Enter your password"),
-  firstName: Yup.string().required("Please Enter your fullname"),
-  lastName: Yup.string().required("Please Enter your fullname"),
+  fullname: Yup.string().required("Please Enter your fullname"),
 });
 
 function Login() {
@@ -19,8 +18,7 @@ function Login() {
     initialValues: {
       email: "",
       password: "",
-      firstName: "",
-      lastName: "",
+      fullname: "",
       budget: 20000,
       autoBid: false,
       notifyAt: "50%",
@@ -36,34 +34,21 @@ function Login() {
 
   return (
     <div className="login-Container">
+      <h1 className="login-title">Login with dummy credentials</h1>
       <div className="login-Wrapper">
         <form className="login-Form" onSubmit={formik.handleSubmit}>
           <div className="login-Items">
             <input
               type="text"
-              placeholder="Last Name"
-              id="lastName"
-              name="lastName"
+              placeholder="Enter your Fullname"
+              id="fullname"
+              name="fullname"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              value={formik.values.lastName}
+              value={formik.values.fullname}
             />
-            {formik.touched.lastName && formik.errors.lastName ? (
-              <div className="error">{formik.errors.lastName}</div>
-            ) : null}
-          </div>
-          <div className="login-Items">
-            <input
-              type="text"
-              placeholder="First Name"
-              id="firstName"
-              name="firstName"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              value={formik.values.firstName}
-            />
-            {formik.touched.firstName && formik.errors.firstName ? (
-              <div className="error">{formik.errors.firstName}</div>
+            {formik.touched.fullname && formik.errors.fullname ? (
+              <div className="error">{formik.errors.fullname}</div>
             ) : null}
           </div>
           <div className="login-Items">
@@ -105,10 +90,6 @@ function Login() {
             )}
           </button>
         </form>
-        <div className="forgot-Password-Create">
-          <span className="forgot">Forgot Password?</span>
-          <button className="create-New-Account">Create a new account</button>
-        </div>
       </div>
     </div>
   );

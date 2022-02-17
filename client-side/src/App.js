@@ -6,8 +6,6 @@ import React from "react";
 import ProductDetails from "./Components/ProductDetails/ProductDetails";
 import AutoBid from "./Components/AutoBid/AutoBid";
 import Login from "./Components/Login/Login";
-import Register from "./Components/Register/Register";
-import Checkout from "./Components/Checkout/Checkout";
 
 function App() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -32,14 +30,6 @@ function App() {
           <Route
             path="/login"
             element={user ? <Navigate to="/" /> : <Login />}
-          />
-          <Route
-            path="/register"
-            element={user ? <Navigate to="/" /> : <Register />}
-          />
-          <Route
-            path="/checkout"
-            element={user ? <Checkout /> : <Navigate to="/login" />}
           />
         </Routes>
       </BrowserRouter>
