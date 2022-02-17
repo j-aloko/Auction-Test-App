@@ -1,0 +1,31 @@
+.home {
+  display: flex;
+  margin-top: 100px;
+  height: 100vh;
+}
+
+.home-Sidebar {
+  flex: 0.2;
+}
+
+.home-Body {
+  flex: 0.8;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
