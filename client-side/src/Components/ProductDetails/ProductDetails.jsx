@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./ProductDetails.css";
 import { Link, useLocation } from "react-router-dom";
 import { products } from "../../DummyData";
@@ -9,9 +9,9 @@ function ProductDetails() {
   const [product, setProduct] = useState({});
   const [currentbid, setCurrentBid] = useState({});
   const [displayAmountInput, setDisplayAmountInput] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(false);
   const [disable, setDisable] = useState(false);
+  const user = JSON.parse(localStorage.getItem("user")); //get user credentials from localStorage
+  const [bidder, setBidder] = useState({ fullname: user?.fullname });
 
   //on Completion of countdown
   const handleComplete = () => {
@@ -38,13 +38,22 @@ function ProductDetails() {
     }
   }, [product?.bidders]);
 
-  //Place a bid
-
-  const user = JSON.parse(localStorage.getItem("user")); //get user credentials
+  //Implementing placing bid functionality
 
   const handleBid = (e) => {
     e.preventDefault();
     setDisplayAmountInput(true); //display input field for amount and budget
+  };
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setBidder({ ...bidder, [e.target.name]: value });
+  };
+
+  const submitBid = (e) => {
+    e.preventDefault();
+    product?.bidders.push(bidder);
+    console.log(product?.bidders);
   };
 
   return (
@@ -88,8 +97,14 @@ function ProductDetails() {
             Place a bid
           </button>
           <div className="auto-bidding">
-            <input type="checkbox" id="autobid" name="autobid" value="" />
-            <label htmlFor="autobid">
+            <input
+              type="checkbox"
+              id="autoBid"
+              name="autoBid"
+              value={true}
+              onChange={handleChange}
+            />
+            <label htmlFor="autoBid">
               {" "}
               Activate the{" "}
               <Link to="/config-auto-bid" className="links">
@@ -119,14 +134,22 @@ function ProductDetails() {
                   className="required-input"
                   placeholder="Enter your budget"
                   required
+                  name="budget"
+                  id="budget"
+                  onChange={handleChange}
                 />
                 <input
                   type="number"
                   className="required-input"
                   placeholder="Enter amount to bid"
                   required
+                  name="amount"
+                  id="amount"
+                  onChange={handleChange}
                 />
-                <button className="submitFields">Submit Bid</button>
+                <button className="submitFields" onClick={submitBid}>
+                  Submit Bid
+                </button>
               </form>
             </div>
           </div>

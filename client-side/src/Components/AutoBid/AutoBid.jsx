@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import "./AutoBid.css";
 
 function AutoBid() {
+  const user = JSON.parse(localStorage.getItem("user")); //get user credentials from localStorage
+  const [autoBid, setAutoBid] = useState({ fullname: user?.fullname });
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setAutoBid({ ...autoBid, [e.target.name]: value });
+  };
+
+  const saveAutoBid = (e) => {
+    e.preventDefault();
+    console.log(autoBid);
+  };
+
   return (
     <div className="auto-bid-container">
       <div className="auto-bid-wrapper">
@@ -16,7 +29,13 @@ function AutoBid() {
           </p>
           <div className="auto-bid-input">
             <span className="currency">$</span>
-            <input type="number" className="auto-bid-input-amt" />
+            <input
+              type="number"
+              className="auto-bid-input-amt"
+              name="amount"
+              id="amount"
+              onChange={handleChange}
+            />
           </div>
         </div>
         <div className="bid-alert-wrapper">
@@ -26,10 +45,18 @@ function AutoBid() {
           </span>
           <div className="notification-input">
             <span className="percentage">%</span>
-            <input type="number" className="notification-reserved-bids" />
+            <input
+              type="number"
+              className="notification-reserved-bids"
+              name="notify"
+              id="notify"
+              onChange={handleChange}
+            />
           </div>
         </div>
-        <button className="save-configuration">Save</button>
+        <button className="save-configuration" onClick={saveAutoBid}>
+          Save
+        </button>
       </div>
     </div>
   );
