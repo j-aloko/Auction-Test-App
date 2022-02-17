@@ -3,7 +3,33 @@ import "./ProductDetails.css";
 import { Link, useLocation } from "react-router-dom";
 import { products } from "../../DummyData";
 import CloseIcon from "@mui/icons-material/Close";
-import Countdown from "react-countdown";
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
+
+//Timer implementation
+
+const minuteSeconds = 60;
+const hourSeconds = 3600;
+const daySeconds = 86400;
+
+const timerProps = {
+  isPlaying: true,
+  size: 50,
+  strokeWidth: 0,
+};
+
+const renderTime = (dimension, time) => {
+  return (
+    <div className="time-wrapper">
+      <div className="time">{time}</div>
+      <div>{dimension}</div>
+    </div>
+  );
+};
+
+const getTimeSeconds = (time) => (minuteSeconds - time) | 0;
+const getTimeMinutes = (time) => ((time % hourSeconds) / minuteSeconds) | 0;
+const getTimeHours = (time) => ((time % daySeconds) / hourSeconds) | 0;
+const getTimeDays = (time) => (time / daySeconds) | 0;
 
 function ProductDetails() {
   const [product, setProduct] = useState({});
@@ -13,10 +39,13 @@ function ProductDetails() {
   const user = JSON.parse(localStorage.getItem("user")); //get user credentials from localStorage
   const [bidder, setBidder] = useState({ fullname: user?.fullname });
 
-  //on Completion of countdown
-  const handleComplete = () => {
-    setDisable(true);
-  };
+  //Timer Implementation
+  const stratTime = Date.now() / 1000; // use UNIX timestamp in seconds
+  const endTime = stratTime + 243248; // use UNIX timestamp in seconds
+
+  const remainingTime = endTime - stratTime;
+  const days = Math.ceil(remainingTime / daySeconds);
+  const daysDuration = days * daySeconds;
 
   // persisting product data across this component
   //We start off by accessing the product id in the window url of this location
@@ -81,16 +110,79 @@ function ProductDetails() {
             </div>
             <div className="time-limit">
               <h4 className="available-until">Available until</h4>
-              <span className="exact-time">
-                {disable ? (
-                  <span className="end">Auction has ended</span>
-                ) : (
-                  <Countdown
-                    date={Date.now() + 256200 * 1000}
-                    onComplete={handleComplete}
-                  />
-                )}
-              </span>
+              <div className="exact-time">
+                <CountdownCircleTimer
+                  {...timerProps}
+                  colors="black"
+                  duration={daysDuration}
+                  initialRemainingTime={remainingTime}
+                >
+                  {({ elapsedTime, color }) => (
+                    <span style={{ color }}>
+                      {renderTime(
+                        daysDuration > 1 ? "days" : "day",
+                        getTimeDays(daysDuration - elapsedTime)
+                      )}
+                    </span>
+                  )}
+                </CountdownCircleTimer>
+                <CountdownCircleTimer
+                  {...timerProps}
+                  colors="black"
+                  duration={daySeconds}
+                  initialRemainingTime={remainingTime % daySeconds}
+                  onComplete={(totalElapsedTime) => ({
+                    shouldRepeat:
+                      remainingTime - totalElapsedTime > hourSeconds,
+                  })}
+                >
+                  {({ elapsedTime, color }) => (
+                    <span style={{ color }}>
+                      {renderTime(
+                        daySeconds > 1 ? "hrs" : "hr",
+                        getTimeHours(daySeconds - elapsedTime)
+                      )}
+                    </span>
+                  )}
+                </CountdownCircleTimer>
+                <CountdownCircleTimer
+                  {...timerProps}
+                  colors="black"
+                  duration={hourSeconds}
+                  initialRemainingTime={remainingTime % hourSeconds}
+                  onComplete={(totalElapsedTime) => ({
+                    shouldRepeat:
+                      remainingTime - totalElapsedTime > minuteSeconds,
+                  })}
+                >
+                  {({ elapsedTime, color }) => (
+                    <span style={{ color }}>
+                      {renderTime(
+                        hourSeconds > 1 ? "mins" : "min",
+                        getTimeMinutes(hourSeconds - elapsedTime)
+                      )}
+                    </span>
+                  )}
+                </CountdownCircleTimer>
+                <CountdownCircleTimer
+                  {...timerProps}
+                  colors="black"
+                  duration={minuteSeconds}
+                  initialRemainingTime={remainingTime % minuteSeconds}
+                  onComplete={(totalElapsedTime) => ({
+                    shouldRepeat: remainingTime - totalElapsedTime > 0,
+                  })}
+                >
+                  {({ elapsedTime, color }) => (
+                    <span style={{ color }}>
+                      {renderTime(
+                        minuteSeconds > 1 ? "secs" : "sec",
+                        getTimeSeconds(elapsedTime)
+                      )}
+                    </span>
+                  )}
+                </CountdownCircleTimer>
+              </div>
             </div>
           </div>
           <button className="place-bid" onClick={handleBid} disabled={disable}>

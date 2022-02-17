@@ -37,7 +37,6 @@
 
 .count-down {
   display: flex;
-  align-items: center;
   justify-content: space-between;
 }
 
@@ -47,7 +46,7 @@
 }
 
 .last-bid-amount {
-  margin-top: -15px;
+  margin-top: -10px;
   font-weight: bold;
 }
 
@@ -59,7 +58,12 @@
 .exact-time {
   margin-top: -15px;
   margin-right: 10px;
-  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.available-until {
+  text-align: center;
 }
 
 .place-bid {
