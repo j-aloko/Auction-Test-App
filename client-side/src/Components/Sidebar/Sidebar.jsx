@@ -7,7 +7,7 @@ function Sidebar() {
   return (
     <div className="sidebar">
       <div className="sidebar-wrapper">
-        <h2 className="filters">Filters</h2>
+        <h3 className="filters">Filters</h3>
         <div className="sidebar-arrange">
           <span className="arrange">Arrange</span>
           <select className="filter-by-selection">

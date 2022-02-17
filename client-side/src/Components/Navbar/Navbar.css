@@ -1,5 +1,5 @@
 .navbar {
-  height: 100px;
+  height: 60px;
   width: 100vw;
   overflow: hidden;
   position: fixed;
@@ -14,6 +14,7 @@
   justify-content: space-between;
   margin-left: 50px;
   margin-right: 50px;
+  margin-top: -20px;
 }
 
 .navbar-Wrapper-Right {
@@ -22,8 +23,8 @@
 }
 
 .user-img {
-  height: 60px;
-  width: 60px;
+  height: 40px;
+  width: 40px;
   border-radius: 50%;
   object-fit: cover;
   vertical-align: middle;
