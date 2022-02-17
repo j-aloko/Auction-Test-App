@@ -70,7 +70,7 @@ function ProductDetails() {
   return (
     <div className="productDetails-wrapper">
       <div className="left-side">
-        <img src="/assets/car.jpg" alt="" className="left-product-img" />
+        <img src={product?.img} alt="" className="left-product-img" />
       </div>
       <div className="right-side">
         <h1 className="product-title">{product?.title}</h1>

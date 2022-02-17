@@ -2,6 +2,15 @@ import React from "react";
 import "./Navbar.css";
 
 function Navbar() {
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  // navigate to the login page after logout
+
+  const Logout = () => {
+    localStorage.clear();
+    window.location.replace("/login");
+  };
+
   return (
     <div className="navbar">
       <div className="navbar-Wrapper">
@@ -10,12 +19,15 @@ function Navbar() {
         </div>
         <div className="navbar-Wrapper-Right">
           <div className="navbar-Right-Avatar">
-            <span className="username">Joseph</span>
+            <span className="username">{user?.firstName}</span>
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
               alt=""
               className="user-img"
             />
+            <span className="logout" onClick={Logout}>
+              Logout
+            </span>
           </div>
         </div>
       </div>

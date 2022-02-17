@@ -36,3 +36,9 @@
   font-size: 20px;
   font-weight: 500;
 }
+
+.logout {
+  margin-left: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}

@@ -8,15 +8,26 @@ import CircularProgress from "@mui/material/CircularProgress";
 const validationSchema = Yup.object({
   email: Yup.string().email().required("Please Enter your Email"),
   password: Yup.string().required("Please Enter your password"),
+  firstName: Yup.string().required("Please Enter your fullname"),
+  lastName: Yup.string().required("Please Enter your fullname"),
 });
 
 function Login() {
+  const [loading, setLoading] = useState(false);
+
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
+      firstName: "",
+      lastName: "",
     },
-    onSubmit: (values) => {},
+    onSubmit: (values) => {
+      setLoading(true);
+      localStorage.setItem("user", JSON.stringify(values));
+      setLoading(false);
+      window.location.replace("/");
+    },
     validationSchema,
   });
 
@@ -24,6 +35,34 @@ function Login() {
     <div className="login-Container">
       <div className="login-Wrapper">
         <form className="login-Form" onSubmit={formik.handleSubmit}>
+          <div className="login-Items">
+            <input
+              type="text"
+              placeholder="Last Name"
+              id="lastName"
+              name="lastName"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              value={formik.values.lastName}
+            />
+            {formik.touched.lastName && formik.errors.lastName ? (
+              <div className="error">{formik.errors.lastName}</div>
+            ) : null}
+          </div>
+          <div className="login-Items">
+            <input
+              type="text"
+              placeholder="First Name"
+              id="firstName"
+              name="firstName"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              value={formik.values.firstName}
+            />
+            {formik.touched.firstName && formik.errors.firstName ? (
+              <div className="error">{formik.errors.firstName}</div>
+            ) : null}
+          </div>
           <div className="login-Items">
             <input
               type="email"
@@ -53,7 +92,14 @@ function Login() {
             ) : null}
           </div>
           <button className="login-Button" type="submit">
-            Login
+            {loading ? (
+              <CircularProgress
+                color="success"
+                style={{ backgroundColor: "transparent" }}
+              />
+            ) : (
+              "Login"
+            )}
           </button>
         </form>
         <div className="forgot-Password-Create">

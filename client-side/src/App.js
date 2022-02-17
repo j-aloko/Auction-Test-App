@@ -7,17 +7,28 @@ import ProductDetails from "./Components/ProductDetails/ProductDetails";
 import AutoBid from "./Components/AutoBid/AutoBid";
 import Login from "./Components/Login/Login";
 import Register from "./Components/Register/Register";
+import Checkout from "./Components/Checkout/Checkout";
 
 function App() {
-  const user = true;
+  const user = JSON.parse(localStorage.getItem("user"));
   return (
     <>
       <BrowserRouter>
         {!user ? null : <Navbar />}
         <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route path="/product-details/:id" element={<ProductDetails />} />
-          <Route path="/config-auto-bid" element={<AutoBid />} />
+          <Route
+            exact
+            path="/"
+            element={user ? <Home /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/product-details/:id"
+            element={user ? <ProductDetails /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/config-auto-bid"
+            element={user ? <AutoBid /> : <Navigate to="/login" />}
+          />
           <Route
             path="/login"
             element={user ? <Navigate to="/" /> : <Login />}
@@ -25,6 +36,10 @@ function App() {
           <Route
             path="/register"
             element={user ? <Navigate to="/" /> : <Register />}
+          />
+          <Route
+            path="/checkout"
+            element={user ? <Checkout /> : <Navigate to="/login" />}
           />
         </Routes>
       </BrowserRouter>
