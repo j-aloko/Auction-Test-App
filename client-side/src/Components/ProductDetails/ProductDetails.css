@@ -1,0 +1,68 @@
+.productDetails-wrapper {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  margin-top: 90px;
+}
+
+.left-side {
+  flex: 0.7;
+  margin-left: 50px;
+}
+
+.left-product-img {
+  width: 95%;
+  height: 80%;
+  object-fit: cover;
+}
+
+.right-side {
+  flex: 0.3;
+  margin-right: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-detail-description {
+  margin-top: 15px;
+  max-width: 95%;
+}
+
+.count-down {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.last-bid {
+  display: flex;
+  flex-direction: column;
+}
+
+.last-bid-amount {
+  margin-top: -15px;
+}
+
+.time-limit {
+  display: flex;
+  flex-direction: column;
+}
+
+.exact-time {
+  margin-top: -15px;
+}
+
+.place-bid {
+  width: 300px;
+  margin-top: 20px;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(150, 147, 147);
+  color: white;
+  cursor: pointer;
+}
+
+.auto-bidding {
+  margin-top: 20px;
+}

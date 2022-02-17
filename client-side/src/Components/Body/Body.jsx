@@ -18,9 +18,6 @@ function Body() {
         <Product />
         <Product />
         <Product />
-        <Product />
-        <Product />
-        <Product />
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Product.css";
 
 function Product() {
@@ -12,7 +13,9 @@ function Product() {
             Lorem ipsum dolor sit amet
           </span>
         </div>
-        <button className="callToAction">Bid Now</button>
+        <Link className="links" to={`product-details/${1}`}>
+          <button className="callToAction">Bid Now</button>
+        </Link>
       </div>
     </div>
   );
