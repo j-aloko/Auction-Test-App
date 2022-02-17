@@ -1,14 +1,37 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./ProductDetails.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { products } from "../../DummyData";
 
 function ProductDetails() {
-  // Implementing count down for each listed Item with hooks
-
   const [day, setDay] = useState("00");
   const [hour, setHour] = useState("00");
   const [minute, setMinute] = useState("00");
   const [second, setSecond] = useState("00");
+  const [product, setProduct] = useState({});
+  const [currentbid, setCurrentBid] = useState({});
+
+  // persisting product data across this component
+  //We start off by accessing the product id in the window url of this location
+
+  const location = useLocation();
+  const productId = location.pathname.split("/")[2];
+
+  // now we find the specific product associated with the productId
+
+  useEffect(() => {
+    setProduct(products?.find((product) => product.id === parseInt(productId)));
+  }, [productId]);
+
+  //find the current bid
+
+  useEffect(() => {
+    if (product?.bidders) {
+      setCurrentBid(product?.bidders.reverse()[0]); //reverse the array of bidders and grab the first index
+    }
+  }, [product?.bidders]);
+
+  // Implementing count down for each listed Item with hooks
 
   let interval = useRef();
 
@@ -50,18 +73,15 @@ function ProductDetails() {
         <img src="/assets/car.jpg" alt="" className="left-product-img" />
       </div>
       <div className="right-side">
-        <h1 className="product-title">Product No1</h1>
-        <span className="minimum-bid-amount">Minimum bid $10</span>
-        <p className="product-detail-description">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. In molestie
-          leo vel tempus laoreet. Aenean sed ultricies turpis, ac mollis urna.
-          Sed malesuada, ex a sodales consectetur, mauris eros malesuada tellus,
-          nec iaculis nulla magna ut nibh. Nam sed aliquam turpis, sit amet
-        </p>
+        <h1 className="product-title">{product?.title}</h1>
+        <span className="minimum-bid-amount">
+          Minimum bid ${product?.minimumBid}
+        </span>
+        <p className="product-detail-description">{product?.description}</p>
         <div className="count-down">
           <div className="last-bid">
             <h4 className="last-bid-made">Last bid made</h4>
-            <span className="last-bid-amount">$15</span>
+            <span className="last-bid-amount">${currentbid?.amount}</span>
           </div>
           <div className="time-limit">
             <h4 className="available-until">Available until</h4>
@@ -72,7 +92,7 @@ function ProductDetails() {
         </div>
         <button className="place-bid">Place a bid</button>
         <div className="auto-bidding">
-          <input type="checkbox" id="autobid" name="autobid" value="Yes" />
+          <input type="checkbox" id="autobid" name="autobid" value="" />
           <label htmlFor="autobid">
             {" "}
             Activate the{" "}
