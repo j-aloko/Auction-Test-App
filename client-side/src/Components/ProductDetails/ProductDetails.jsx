@@ -14,7 +14,7 @@ const daySeconds = 86400;
 const timerProps = {
   isPlaying: true,
   size: 50,
-  strokeWidth: 0,
+  strokeWidth: 2,
 };
 
 const renderTime = (dimension, time) => {
@@ -118,7 +118,7 @@ function ProductDetails() {
                   initialRemainingTime={remainingTime}
                 >
                   {({ elapsedTime, color }) => (
-                    <span style={{ color }}>
+                    <span style={{ color, marginRight: "5px" }}>
                       {renderTime(
                         daysDuration > 1 ? "days" : "day",
                         getTimeDays(daysDuration - elapsedTime)

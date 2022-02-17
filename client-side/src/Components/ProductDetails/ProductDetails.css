@@ -57,9 +57,9 @@
 
 .exact-time {
   margin-top: -15px;
-  margin-right: 10px;
   display: flex;
   align-items: center;
+  justify-content: space-evenly;
 }
 
 .available-until {
