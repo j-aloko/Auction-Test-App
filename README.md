@@ -70,6 +70,44 @@ A user can configure a maximum amount and a percentage threshold, i.e., a percen
 ![Screenshot (82)](https://user-images.githubusercontent.com/93955657/154769411-fbe8d0d5-e5dc-4512-8568-3ac024b582cc.png)
 
 
+# Solution
+
+## Simple Login Page
+This login page has 3 login options;
+
+* Login with your fullname and a dummy password
+* Login as Jon Snow (hard coded)
+* Login as Jane Doe (hard coded)
+
+Once a user logs in, the users information is stored in the localStorage and later accessed in multiple components with localStorage.getItem() method
+
+![Screenshot (91)](https://user-images.githubusercontent.com/93955657/154771697-9b753df2-3a5c-4501-81d1-7b19472cb3f8.png)
+
+
+
+
+## Homepage
+
+![Screenshot (84)](https://user-images.githubusercontent.com/93955657/154770438-3a4a9f51-1e39-4dfd-8d49-1cf0ca330324.png)
+
+
+
+
+## Product Detail Page
+
+![Screenshot (87)](https://user-images.githubusercontent.com/93955657/154771053-524acb53-bc24-4e33-a902-e68b850bf9c0.png)
+
+
+
+
+## Auto Bidding Configuration Page
+
+![Screenshot (89)](https://user-images.githubusercontent.com/93955657/154771261-18ba7925-0ba0-4e11-b189-3d8961123d6e.png)
+
+
+
+
+
 
 
 
