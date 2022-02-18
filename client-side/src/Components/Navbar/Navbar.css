@@ -27,6 +27,26 @@
   margin-top: 15px;
 }
 
+.notification-panel {
+  margin-right: 35px;
+  cursor: pointer;
+}
+
+.notification-alert {
+  position: fixed;
+  top: 50px;
+  right: 20px;
+  height: 250px;
+  width: 400px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgb(85, 84, 84);
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  z-index: 2;
+}
+
 .user-img {
   height: 40px;
   width: 40px;

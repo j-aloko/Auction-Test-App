@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import Badge from "@mui/material/Badge";
 
 function Navbar() {
   const user = JSON.parse(localStorage.getItem("user"));
+  const [showNotification, setShowNotification] = useState(false);
 
   // navigate to the login page after logout
 
@@ -21,6 +24,16 @@ function Navbar() {
           </div>
         </Link>
         <div className="navbar-Wrapper-Right">
+          <div className="notification-panel">
+            {showNotification && <div className="notification-alert">hi</div>}
+            <Badge
+              badgeContent={4}
+              color="secondary"
+              onClick={() => setShowNotification(!showNotification)}
+            >
+              <NotificationsIcon />
+            </Badge>
+          </div>
           <div className="navbar-Right-Avatar">
             <span className="username">{user?.fullname}</span>
             <img

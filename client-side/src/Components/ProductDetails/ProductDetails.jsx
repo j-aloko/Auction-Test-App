@@ -16,7 +16,6 @@ import { getAutoBids } from "./../../Api-Calls/AutoBid";
 
 function ProductDetails() {
   const [currentbid, setCurrentBid] = useState({});
-  const [endDate, setEndDate] = useState();
   const [displayAmountInput, setDisplayAmountInput] = useState(false);
   const user = JSON.parse(localStorage.getItem("user")); //get user credentials from localStorage
   const [bidder, setBidder] = useState({ fullname: user?.fullname }); // set bidder's fullname on initial render
@@ -61,14 +60,6 @@ function ProductDetails() {
       setCurrentBid({ amount: 0 });
     }
   }, [product?.bidders]);
-
-  //Timer Implementation
-
-  useEffect(() => {
-    setTimeout(() => {
-      setEndDate(product?.endDate);
-    }, 200);
-  }, [product?.endDate]);
 
   const minuteSeconds = 60;
   const hourSeconds = 3600;

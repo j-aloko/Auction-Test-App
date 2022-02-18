@@ -36,10 +36,10 @@ function AutoBid() {
     setLoading(true);
     saveAutoBids(dispatch, autoBid); //Configure a new autobid
     if (!error) {
-      setSuccess(true);
-      setErrorr(false);
-      setLoading(false);
       setTimeout(() => {
+        setSuccess(true);
+        setErrorr(false);
+        setLoading(false);
         navigate("/product-details/" + redirectPath); // redirect back to product details page after 1 second
       }, 2000);
     } else {
@@ -68,6 +68,7 @@ function AutoBid() {
               className="auto-bid-input-amt"
               name="amount"
               id="amount"
+              required
               onChange={handleChange}
             />
           </div>
@@ -84,6 +85,7 @@ function AutoBid() {
               className="notification-reserved-bids"
               name="notify"
               id="notify"
+              required
               onChange={handleChange}
             />
           </div>
