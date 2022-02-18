@@ -7,14 +7,7 @@ listedProductsSchema = new mongoose.Schema(
     img: { type: String, required: true, default: "" },
     minimumBid: { type: Number, required: true, default: 0 },
     endDate: { type: Number, required: true, default: 0 },
-    bidders: [
-      {
-        fullname: { type: String },
-        amount: { type: Number },
-        budget: { type: Number },
-        autoBid: { type: Boolean, default: false },
-      },
-    ],
+    bidders: { type: Array, default: [] },
   },
   { timestamps: true }
 );
