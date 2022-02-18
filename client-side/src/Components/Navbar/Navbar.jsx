@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import Badge from "@mui/material/Badge";
 
-function Navbar() {
+function Navbar({ socket }) {
   const user = JSON.parse(localStorage.getItem("user"));
   const [showNotification, setShowNotification] = useState(false);
 

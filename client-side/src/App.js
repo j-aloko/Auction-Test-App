@@ -2,17 +2,26 @@ import "./App.css";
 import Navbar from "./Components/Navbar/Navbar";
 import Home from "./Home/Home";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ProductDetails from "./Components/ProductDetails/ProductDetails";
 import AutoBid from "./Components/AutoBid/AutoBid";
 import Login from "./Components/Login/Login";
+import { io } from "socket.io-client";
 
 function App() {
   const user = JSON.parse(localStorage.getItem("user"));
+
+  const [socket, setSocket] = useState(null);
+
+  //on app render, initilize socket connection
+  useEffect(() => {
+    setSocket(io("ws://localhost:5000", { transports: ["websocket"] }));
+  }, []);
+
   return (
     <>
       <BrowserRouter>
-        {!user ? null : <Navbar />}
+        {!user ? null : <Navbar socket={socket} />}
         <Routes>
           <Route
             exact
@@ -21,7 +30,13 @@ function App() {
           />
           <Route
             path="/product-details/:id"
-            element={user ? <ProductDetails /> : <Navigate to="/login" />}
+            element={
+              user ? (
+                <ProductDetails socket={socket} />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
           <Route
             path="/config-auto-bid"

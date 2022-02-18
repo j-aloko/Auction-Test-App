@@ -14,7 +14,7 @@ import { getAutoBids } from "./../../Api-Calls/AutoBid";
 
 //Timer implementation
 
-function ProductDetails() {
+function ProductDetails({ socket }) {
   const [currentbid, setCurrentBid] = useState({});
   const [displayAmountInput, setDisplayAmountInput] = useState(false);
   const user = JSON.parse(localStorage.getItem("user")); //get user credentials from localStorage
