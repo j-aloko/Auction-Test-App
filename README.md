@@ -51,6 +51,23 @@ A user can configure a maximum amount and a percentage threshold, i.e., a percen
 
 
 # Backend Process
+* Initializing express server
+* Connecting to MonogoDB
+* Importing all third party libraries and configuring routes
+
+![Screenshot (81)](https://user-images.githubusercontent.com/93955657/154769720-0cf0278f-4b84-49f4-bba1-1bc9197d2684.png)
+
+
+# Defining the Structure of Bidify Database (Schema)
+
+* Product Schema alias ListedPrductSchema
+
+![Screenshot (83)](https://user-images.githubusercontent.com/93955657/154770010-5399632b-b6cb-484b-a1e2-05ed3087d5b9.png)
+
+
+* Configuration Schema  alias AutoBids
+
+![Screenshot (82)](https://user-images.githubusercontent.com/93955657/154769411-fbe8d0d5-e5dc-4512-8568-3ac024b582cc.png)
 
 
 
