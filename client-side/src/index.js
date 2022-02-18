@@ -4,11 +4,14 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ProductsContextProvider } from "./Context-Api/Products/Context";
+import { AutoBidsContextProvider } from "./Context-Api/Autobids/Context";
 
 ReactDOM.render(
   <React.StrictMode>
     <ProductsContextProvider>
-      <App />
+      <AutoBidsContextProvider>
+        <App />
+      </AutoBidsContextProvider>
     </ProductsContextProvider>
   </React.StrictMode>,
   document.getElementById("root")
