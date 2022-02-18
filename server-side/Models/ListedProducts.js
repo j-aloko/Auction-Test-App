@@ -9,9 +9,9 @@ listedProductsSchema = new mongoose.Schema(
     endDate: { type: Number, required: true, default: 0 },
     bidders: [
       {
-        fullname: { type: String, required: true },
-        amount: { type: Number, required: true },
-        budget: { type: Number, required: true },
+        fullname: { type: String },
+        amount: { type: Number },
+        budget: { type: Number },
         autoBid: { type: Boolean, default: false },
       },
     ],
