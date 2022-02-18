@@ -98,6 +98,14 @@ Once a user logs in, the users information is stored in the localStorage and lat
 
 
 
+## Notification Tab
+
+Displays notification alert
+
+![Screenshot (98)](https://user-images.githubusercontent.com/93955657/154775720-185e7917-ae78-42df-8a5a-3800f90c9b4e.png)
+
+
+
 
 ## Product Detail Page
 
