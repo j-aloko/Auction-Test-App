@@ -1,4 +1,4 @@
-# Challenge
+# Description
 
 Bidify is an online auction platform where users can buy antiques by participating in bids. Participants bid openly against one another, with each subsequent bid required to be higher than the previous bid and the minimum bid amount. Participants have the option to configure an auto bidding bot and enable auto bidding on a particular item or multiple items to carry out bids in their favour whenever another user outbids them.
 
@@ -50,6 +50,9 @@ The ability to activate auto-bidding. The next time someone else makes a bid on 
 A user can configure a maximum amount and a percentage threshold, i.e., a percentage of the  maximum amount at which, auto-bidding stops, and a notification alert 		 is sent to the user.
 
 
+#Solution
+
+
 # Backend Process
 * Initializing express server
 * Connecting to MonogoDB
@@ -70,7 +73,7 @@ A user can configure a maximum amount and a percentage threshold, i.e., a percen
 ![Screenshot (82)](https://user-images.githubusercontent.com/93955657/154769411-fbe8d0d5-e5dc-4512-8568-3ac024b582cc.png)
 
 
-# Solution
+# Pages
 
 ## Simple Login Page
 This login page has 3 login options;
@@ -102,7 +105,38 @@ Once a user logs in, the users information is stored in the localStorage and lat
 
 ## Auto Bidding Configuration Page
 
+
 ![Screenshot (89)](https://user-images.githubusercontent.com/93955657/154771261-18ba7925-0ba0-4e11-b189-3d8961123d6e.png)
+
+
+
+
+
+# How the auto-bidding bot works
+
+### Given User1 = Jon Snow and User2 = Jane Doe
+
+### Lets assume User1 has configured auto-bidding setting and enabled auto-bidding on a particular Item or multiple items
+
+### Whenever User2 places a bid,
+
+* The bot makes a GET request to our database and fetches all configurations
+* Then it filters User2's configuration out of the response
+* The bot iterates through the result and verifies that User1 has "deductible" left or "deductible" > 0
+
+## NB: Deductible = Minimum percentage configured X Maximum amount configured
+
+### If there are still some deductible
+
+* Continue the iteration and get the fullname of User1 
+* Add +1 to the previous bid amount and Update the array of bidders in the product object
+
+### If deductible < 0
+
+* The bot stops auto bidding and sends a notification to User1
+
+
+
 
 
 
