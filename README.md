@@ -106,6 +106,27 @@ Once a user logs in, the users information is stored in the localStorage and lat
 
 
 
+## Submit Bid Amount Page
+
+* Verifies the bid amount exceeds the previous bid or minium bid amount
+* If condition is not met, a UI will be rendered. Displaying Error
+
+
+![Screenshot (93)](https://user-images.githubusercontent.com/93955657/154774821-763f9a0b-62ba-4606-8548-c7a5730a32ca.png)
+
+
+
+## Enable Auto Bid
+
+* If checked and auto-bid configuration does not exist for the user?
+* User is redirected to the auto-bid configuration page
+* After saving configuration, User is redirected back to the product detail page
+
+
+![Screenshot (96)](https://user-images.githubusercontent.com/93955657/154775218-5b1b5e06-500c-4873-8b8b-d7ed01547271.png)
+
+
+
 ## Auto Bidding Configuration Page
 
 
