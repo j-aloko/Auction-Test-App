@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { saveAutoBids } from "../../Api-Calls/AutoBid";
 import "./AutoBid.css";
 import { autoBidContext } from "./../../Context-Api/Autobids/Context";
@@ -28,6 +28,11 @@ function AutoBid() {
     const value = e.target.value;
     setAutoBid({ ...autoBid, [e.target.name]: value });
   };
+
+  useEffect(() => {
+    const value = autoBid?.amount * (autoBid?.threshold / 100);
+    setAutoBid((prev) => ({ ...prev, deductible: value }));
+  }, [autoBid?.amount, autoBid?.threshold]);
 
   //save auto bids in our database
 
@@ -66,6 +71,7 @@ function AutoBid() {
             <input
               type="number"
               className="auto-bid-input-amt"
+              placeholder="Set max amount"
               name="amount"
               id="amount"
               required
@@ -83,8 +89,9 @@ function AutoBid() {
             <input
               type="number"
               className="notification-reserved-bids"
-              name="notify"
-              id="notify"
+              placeholder="Set percentage of max amount reserved for bid"
+              name="threshold"
+              id="threshold"
               required
               onChange={handleChange}
             />

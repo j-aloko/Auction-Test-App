@@ -45,6 +45,8 @@
   font-size: 16px;
   font-weight: 500;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
 }
 
 .user-img {
@@ -64,5 +66,19 @@
 .logout {
   margin-left: 10px;
   font-weight: bold;
+  cursor: pointer;
+}
+
+.clear-notification {
+  width: 160px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(170, 179, 180);
+  color: white;
+  font-size: 16px;
+  margin-top: 30px;
+  position: relative;
+  left: 120px;
   cursor: pointer;
 }

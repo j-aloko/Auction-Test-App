@@ -11,6 +11,15 @@ const io = new Server({
 io.on("connection", (socket) => {
   console.log("User connected");
 
+  // receive notification
+
+  socket.on("notification", ({ fullname, message }) => {
+    io.emit("receiveNotification", {
+      fullname,
+      message,
+    });
+  });
+
   //upon disconnection lets remove all users from the connection
   socket.on("disconnect", () => {
     console.log("User disconnected");

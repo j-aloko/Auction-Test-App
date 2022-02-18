@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -7,12 +7,29 @@ import Badge from "@mui/material/Badge";
 function Navbar({ socket }) {
   const user = JSON.parse(localStorage.getItem("user"));
   const [showNotification, setShowNotification] = useState(false);
+  const [notification, setNotification] = useState();
 
   // navigate to the login page after logout
 
   const Logout = () => {
     localStorage.clear();
     window.location.replace("/login");
+  };
+
+  // when component mounts, receive notifications if any
+  useEffect(() => {
+    socket?.on("receiveNotification", (data) => {
+      if (data?.fullname === user?.fullname) {
+        setNotification(data?.message);
+      }
+    });
+  }, [socket, user?.fullname]);
+
+  // Clear notification
+
+  const clearNotifications = (e) => {
+    e.preventDefault();
+    setNotification();
   };
 
   return (
@@ -25,9 +42,23 @@ function Navbar({ socket }) {
         </Link>
         <div className="navbar-Wrapper-Right">
           <div className="notification-panel">
-            {showNotification && <div className="notification-alert">hi</div>}
+            {showNotification && (
+              <div className="notification-alert">
+                <span className="notificaion">
+                  {notification && notification}
+                </span>
+                {notification && (
+                  <button
+                    className="clear-notification"
+                    onClick={clearNotifications}
+                  >
+                    Mark as read
+                  </button>
+                )}
+              </div>
+            )}
             <Badge
-              badgeContent={4}
+              badgeContent={notification && 1}
               color="secondary"
               onClick={() => setShowNotification(!showNotification)}
             >

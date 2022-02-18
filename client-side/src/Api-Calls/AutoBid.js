@@ -48,3 +48,15 @@ export const updateAutoBid = async (dispatch, id, value) => {
     dispatch(updateAutoBidFailure());
   }
 };
+
+// update Auto bid configuartion
+
+export const updateAutoBidConfig = async (dispatch, id, value) => {
+  dispatch(updateAutoBidStart());
+  try {
+    const res = await axiosInstance.put("autobids/" + id, value);
+    dispatch(updateAutoBidSuccess(res.data));
+  } catch (error) {
+    dispatch(updateAutoBidFailure());
+  }
+};

@@ -6,7 +6,7 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { productContext } from "./../../Context-Api/SingleProduct/Context";
 import { getProduct } from "./../../Api-Calls/product";
 import { updateProduct } from "../../Api-Calls/Products";
-import { updateAutoBid } from "./../../Api-Calls/AutoBid";
+import { updateAutoBid, updateAutoBidConfig } from "./../../Api-Calls/AutoBid";
 import { productsContext } from "./../../Context-Api/Products/Context";
 import CircularProgress from "@mui/material/CircularProgress";
 import { autoBidContext } from "./../../Context-Api/Autobids/Context";
@@ -33,7 +33,10 @@ function ProductDetails({ socket }) {
 
   useEffect(() => {
     autoBids?.forEach((item) => {
-      if (item?.productIds?.includes(product?._id)) {
+      if (
+        item?.productIds?.includes(product?._id) &&
+        item?.fullname === user?.fullname
+      ) {
         setChecked(true);
       }
     });
@@ -92,6 +95,11 @@ function ProductDetails({ socket }) {
   const days = Math.ceil(remainingTime / daySeconds);
   const daysDuration = days * daySeconds;
 
+  //fetch all autoBids immediately this component mounts
+  useEffect(() => {
+    getAutoBids(autobidDispatch);
+  }, [autobidDispatch]);
+
   const handleBid = (e) => {
     e.preventDefault();
     setDisplayAmountInput(true); //display amount field for user to input bid amount
@@ -115,43 +123,42 @@ function ProductDetails({ socket }) {
     ) {
       updateProduct(productsDispatch, productId, bidders); //update array of bidders in the product schema
 
-      // Automatic bidding algorithm
-
-      //filter out current user from autoBid Array
-      // forEach person left who has configured autobidding, verify that autobidding is enabled for this product
-      // verify amount set by each person is greater than previous bid + 1
-      // if condition is true,
-      // Add + 1 to the previous bid and automatically bid for each person
-      //else if amount set is less than previous bid + 1
-      // send notification to the user
+      // Automatic bidding algorithm executes 3 seconds after the bid is submitted
 
       setTimeout(() => {
         autoBids
           ?.filter((autoBid) => autoBid.fullname !== user?.fullname)
           .forEach((item) => {
-            if (
-              item?.productIds?.includes(product?._id) &&
-              item?.amount > parseInt(bidders?.amount) + 1
-            ) {
-              const values = {
+            if (item?.deductible !== 0) {
+              if (
+                item?.productIds?.includes(product?._id) &&
+                item?.deductible > 0
+              ) {
+                const values = {
+                  fullname: item?.fullname,
+                  amount: parseInt(bidders?.amount) + 1,
+                };
+                updateProduct(productsDispatch, productId, values);
+                const reduction = {
+                  deductible: item?.deductible - 1,
+                  amount: item?.amount - 1,
+                };
+                updateAutoBidConfig(productsDispatch, item?._id, reduction);
+              }
+            } else {
+              socket?.emit("notification", {
                 fullname: item?.fullname,
-                amount: parseInt(bidders?.amount) + 1,
-              };
-              updateProduct(productsDispatch, productId, values);
-            } else if (
-              item.productIds?.includes(product?._id) &&
-              item?.amount < parseInt(bidders?.amount) + 1
-            ) {
-              console.log("insufficient funds");
+                message: `Dear ${item?.fullname} your have exhausted your reserved maximum bid amount.`,
+              });
             }
           });
-      }, 2000);
+      }, 3000);
 
       setTimeout(() => {
-        setLoading(false); // hide progress bar
+        setLoading(false);
         setFailed(false);
         setSuccess(true);
-        window.location.reload(); //refresh page after bid has been successful
+        window.location.reload();
       }, 5000);
     } else {
       setFailed(true);
@@ -159,11 +166,6 @@ function ProductDetails({ socket }) {
       setLoading(false);
     }
   };
-
-  //fetch all autoBids immediately this component mounts
-  useEffect(() => {
-    getAutoBids(autobidDispatch);
-  }, [autobidDispatch]);
 
   //get autobid
   //This effect will assist in obtaining an autobid configuration Id, for updating It's array of productIds
@@ -183,13 +185,15 @@ function ProductDetails({ socket }) {
     //verify that user has already configured before navigating to configuration page
     if (
       value &&
-      !autoBids?.find((autobid) => autobid.fullname === user?.fullname)
+      !autoBids?.find((autobid) => autobid.fullname === user?.fullname) // if the current user has no configuration, redirect to configuration page
     ) {
       navigate("/config-auto-bid", { state: product?._id });
     } else if (
       value &&
-      autoBids?.find((autobid) => autobid.fullname === user?.fullname)
+      autoBids?.find((autobid) => autobid.fullname === user?.fullname) // esle enable auto bid and checkbox
     ) {
+      setChecked(false);
+
       // enable autobid for this product and push it's Id into our productIds Array of our AutoBid Schema
       updateAutoBid(autobidDispatch, autobid?._id, product?._id);
     }
@@ -301,6 +305,7 @@ function ProductDetails({ socket }) {
           <div className="auto-bidding">
             <input
               type="checkbox"
+              checked={checked ? true : false}
               id="autoBid"
               name="autoBid"
               value={true}

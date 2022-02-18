@@ -25,6 +25,23 @@ router.get("/", async (req, res) => {
   }
 });
 
+//Update autobid Configuration
+
+router.put("/:id", async (req, res) => {
+  try {
+    const updatedAutobid = await AutoBids.findOneAndUpdate(
+      req.params.id,
+      {
+        $set: req.body,
+      },
+      { new: true }
+    );
+    res.status(200).json(updatedAutobid);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // update products Array with Ids of products you enabled autobid
 
 router.put("/update/:id", async (req, res) => {

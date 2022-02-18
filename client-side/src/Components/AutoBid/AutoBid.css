@@ -49,7 +49,7 @@
 }
 
 .auto-bid-input-amt {
-  width: 150px;
+  width: 320px;
   padding: 10px;
   border: none;
   border-radius: 5px;
@@ -78,12 +78,12 @@
 
 .percentage {
   position: absolute;
-  left: 125px;
+  left: 320px;
   z-index: 2;
 }
 
 .notification-reserved-bids {
-  width: 150px;
+  width: 320px;
   padding: 10px;
   border: none;
   border-radius: 5px;
@@ -94,7 +94,7 @@
 
 .save-configuration {
   margin-top: 50px;
-  width: 220px;
+  width: 340px;
   padding: 10px;
   border: none;
   border-radius: 5px;
@@ -106,22 +106,24 @@
 
 .errorconfig {
   padding: 10px;
-  width: 200px;
+  width: 320px;
   background-color: rgb(236, 62, 62);
   border-radius: 10px;
   color: white;
   font-size: 16px;
   font-weight: 500;
-  margin-top: 20px;
+  margin-top: 30px;
+  text-align: center;
 }
 
 .successconfig {
   padding: 10px;
-  width: 200px;
+  width: 320px;
   background-color: rgb(28, 173, 47);
   border-radius: 10px;
   color: white;
   font-size: 16px;
   font-weight: 500;
-  margin-top: 20px;
+  margin-top: 30px;
+  text-align: center;
 }
