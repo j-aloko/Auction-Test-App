@@ -5,6 +5,8 @@ const app = express();
 const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
+const listedProductsRoute = require("./Routes/listedProducts");
+const autoBidsRoute = require("./Routes/autoBids");
 
 dotenv.config();
 
@@ -26,3 +28,5 @@ app.use(morgan("common"));
 app.use(helmet());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use("/api/products", listedProductsRoute);
+app.use("/api/autobids", autoBidsRoute);
