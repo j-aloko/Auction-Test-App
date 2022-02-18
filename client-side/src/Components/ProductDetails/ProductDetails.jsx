@@ -16,10 +16,10 @@ import { getAutoBids } from "./../../Api-Calls/AutoBid";
 
 function ProductDetails() {
   const [currentbid, setCurrentBid] = useState({});
-  const [endDate, setEndDate] = useState(100000);
+  const [endDate, setEndDate] = useState();
   const [displayAmountInput, setDisplayAmountInput] = useState(false);
   const user = JSON.parse(localStorage.getItem("user")); //get user credentials from localStorage
-  const [bidder, setBidder] = useState({ fullname: user?.fullname });
+  const [bidder, setBidder] = useState({ fullname: user?.fullname }); // set bidder's fullname on initial render
   const { product, dispatch } = useContext(productContext);
   const { dispatch: productsDispatch } = useContext(productsContext);
   const [loading, setLoading] = useState(false);
@@ -27,6 +27,18 @@ function ProductDetails() {
   const [success, setSuccess] = useState(false);
   const { autoBids, dispatch: autobidDispatch } = useContext(autoBidContext);
   const [autobid, setAutoBid] = useState({});
+  const [checked, setChecked] = useState(false);
+
+  // verify that the product has autobid enabled
+  // if products auto bid is enabled, show blue check box
+
+  useEffect(() => {
+    autoBids?.forEach((item) => {
+      if (item?.productIds?.includes(product?._id)) {
+        setChecked(true);
+      }
+    });
+  }, [autoBids, user?.fullname, product?._id]);
 
   // persisting product data across this component
   //We start off by accessing the product id in the window url of this location
@@ -82,40 +94,74 @@ function ProductDetails() {
   const getTimeHours = (time) => ((time % daySeconds) / hourSeconds) | 0;
   const getTimeDays = (time) => (time / daySeconds) | 0;
 
-  const startTime = Date.now() / 1000; // use UNIX timestamp in seconds
-  const endTime = startTime + endDate; // use UNIX timestamp in seconds
+  const startTime = Date.now() / 1000;
+  const endTime = startTime + 325462;
 
   const remainingTime = endTime - startTime;
   const days = Math.ceil(remainingTime / daySeconds);
   const daysDuration = days * daySeconds;
 
-  //Implementing placing bid functionality
-
   const handleBid = (e) => {
     e.preventDefault();
-    setDisplayAmountInput(true); //display input field for amount and budget
+    setDisplayAmountInput(true); //display amount field for user to input bid amount
   };
 
   const handleChange = (e) => {
     const value = e.target.value;
-    setBidder({ ...bidder, [e.target.name]: value });
+    setBidder({ ...bidder, [e.target.name]: value }); //append additional bidder's information to fullname , set on initial render
   };
 
   const submitBid = (e) => {
     e.preventDefault();
-    setLoading(true);
-    const bidders = bidder;
+    setLoading(true); // render a progress bar
+    const bidders = {
+      fullname: bidder?.fullname, //object containing bidders information including amount bid
+      amount: parseInt(bidder?.amount),
+    };
     if (
-      bidders.amount > product?.minimumBid &&
-      bidders.amount > currentbid?.amount
+      parseInt(bidders.amount) > product?.minimumBid && //if amount bid is greater than minimum bid likewise than current bid,
+      parseInt(bidders.amount) > currentbid?.amount
     ) {
-      updateProduct(productsDispatch, productId, bidders);
-      setLoading(false);
-      setFailed(false);
-      setSuccess(true);
+      updateProduct(productsDispatch, productId, bidders); //update array of bidders in the product schema
+
+      // Automatic bidding algorithm
+
+      //filter out current user from autoBid Array
+      // forEach person left who has configured autobidding, verify that autobidding is enabled for this product
+      // verify amount set by each person is greater than previous bid + 1
+      // if condition is true,
+      // Add + 1 to the previous bid and automatically bid for each person
+      //else if amount set is less than previous bid + 1
+      // send notification to the user
+
       setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+        autoBids
+          ?.filter((autoBid) => autoBid.fullname !== user?.fullname)
+          .forEach((item) => {
+            if (
+              item?.productIds?.includes(product?._id) &&
+              item?.amount > parseInt(bidders?.amount) + 1
+            ) {
+              const values = {
+                fullname: item?.fullname,
+                amount: parseInt(bidders?.amount) + 1,
+              };
+              updateProduct(productsDispatch, productId, values);
+            } else if (
+              item.productIds?.includes(product?._id) &&
+              item?.amount < parseInt(bidders?.amount) + 1
+            ) {
+              console.log("insufficient funds");
+            }
+          });
+      }, 2000);
+
+      setTimeout(() => {
+        setLoading(false); // hide progress bar
+        setFailed(false);
+        setSuccess(true);
+        window.location.reload(); //refresh page after bid has been successful
+      }, 5000);
     } else {
       setFailed(true);
       setSuccess(false);
@@ -129,6 +175,7 @@ function ProductDetails() {
   }, [autobidDispatch]);
 
   //get autobid
+  //This effect will assist in obtaining an autobid configuration Id, for updating It's array of productIds
   useEffect(() => {
     setAutoBid(
       autoBids?.find((autobid) => autobid.fullname === user?.fullname)
@@ -140,8 +187,9 @@ function ProductDetails() {
 
   const handleAutoBidding = (e) => {
     const value = e.target.value;
-    //verify that user has already configured before navigating to configuration page
+    setChecked(true);
 
+    //verify that user has already configured before navigating to configuration page
     if (
       value &&
       !autoBids?.find((autobid) => autobid.fullname === user?.fullname)
@@ -152,22 +200,9 @@ function ProductDetails() {
       autoBids?.find((autobid) => autobid.fullname === user?.fullname)
     ) {
       // enable autobid for this product and push it's Id into our productIds Array of our AutoBid Schema
-      console.log(autobid);
       updateAutoBid(autobidDispatch, autobid?._id, product?._id);
     }
   };
-
-  //5secs after this component is mounted we want to verify that the product has autobid enabled
-  // if products auto bid is enabled, auto check box
-
-  /*useEffect(() => {
-    //find autoBid Json with the usersname
-    setTimeout(() => {
-      console.log(
-        autoBids?.find((autobid) => autobid.fullname === user?.fullname)
-      );
-    }, 5000);
-  }, [autoBids, user?.fullname]);*/
 
   return (
     <>
@@ -280,15 +315,18 @@ function ProductDetails() {
               value={true}
               onChange={handleAutoBidding}
             />
-            <label htmlFor="autoBid">
-              {" "}
-              Activate the{" "}
-              <Link to="/config-auto-bid" className="links">
-                <b className="auto-bidding-bold" syle={{ cursor: "pointer" }}>
-                  <u>auto bidding</u>
-                </b>
-              </Link>
-            </label>
+            {!checked && (
+              <label htmlFor="autoBid">
+                {" "}
+                Activate the{" "}
+                <Link to="/config-auto-bid" className="links">
+                  <b className="auto-bidding-bold" syle={{ cursor: "pointer" }}>
+                    <u>auto bidding</u>
+                  </b>
+                </Link>
+              </label>
+            )}
+            {checked && <span>Autobid enabled for this item </span>}
             <br />
           </div>
         </div>

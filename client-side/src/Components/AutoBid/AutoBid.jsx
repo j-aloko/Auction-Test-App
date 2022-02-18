@@ -9,7 +9,6 @@ function AutoBid() {
   const user = JSON.parse(localStorage.getItem("user")); //get user credentials from localStorage
   const [autoBid, setAutoBid] = useState({
     fullname: user?.fullname,
-    status: true,
   });
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);

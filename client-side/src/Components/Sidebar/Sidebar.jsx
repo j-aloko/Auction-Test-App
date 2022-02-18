@@ -34,7 +34,7 @@ function Sidebar() {
           <li className="category-list">
             <label className="container">
               Category 01
-              <input type="checkbox" checked="checked" />
+              <input type="checkbox" />
               <span className="checkmark"></span>
             </label>
           </li>

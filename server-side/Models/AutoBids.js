@@ -6,7 +6,6 @@ autoBidsSchema = new mongoose.Schema(
     amount: { type: Number, required: true },
     notify: { type: Number, required: true, default: 100 },
     productIds: { type: Array, default: [] },
-    status: { type: Boolean, default: false },
   },
   { timestamps: true }
 );
