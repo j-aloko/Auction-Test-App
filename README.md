@@ -43,14 +43,16 @@ The Item Details page gives a brief description of the item and displays a count
   
   
 ### An auto-bidding feature
-The ability to activate auto-bidding. The next time someone else makes a bid on the marked item, the  bot should automatically outbid them by 1.
+The ability to activate auto-bidding. The next time someone else makes a bid on the marked item, the  bot should automatically outbid them +1.
   
   
 ### Auto bidding configuration page
 A user can configure a maximum amount and a percentage threshold, i.e., a percentage of the  maximum amount at which, auto-bidding stops, and a notification alert 		 is sent to the user.
 
 
-#Solution
+
+# Solution
+
 
 
 # Backend Process
