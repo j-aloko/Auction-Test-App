@@ -22,6 +22,7 @@ Build a high-performance, smooth-running online bidding platform for convenient 
 
 # Libraries
 
+* Axios - Making HTTP requests
 * Formik and yup - form validation
 * React countdown timer - Implementing a countdown for each listed item
 * React router dom - routing in between components
@@ -133,7 +134,7 @@ Once a user logs in, the users information is stored in the localStorage and lat
 * Continue the iteration and get the fullname of User1 
 * Add +1 to the previous bid amount and Update the array of bidders in the product object
 
-### If deductible < 0
+### Else if deductible < 0
 
 * The bot stops auto bidding and sends a notification to User1
 
