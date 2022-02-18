@@ -42,12 +42,22 @@ router.get("/find/:id", async (req, res) => {
   }
 });
 
+//get all lsited products
+router.get("/", async (req, res) => {
+  try {
+    const products = await ListedProducts.find();
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
 // update bidders array whenever a user places a bid
 
 router.put("/bid/:id", async (req, res) => {
   try {
     const listedProduct = await ListedProducts.findById(req.params.id);
-    await listedProduct.updateOne({ $push: { bidders: req.body } });
+    await listedProduct.updateOne({ $push: { bidders: req.body.values } });
     res.status(200).json("bid placed successfully");
   } catch (error) {
     res.status(500).json(error);
