@@ -21,6 +21,19 @@
   width: 95%;
   height: 80%;
   object-fit: cover;
+  border: none;
+  border-radius: 5px;
+  background: rgb(178, 179, 180);
+  animation: mymove 2s infinite;
+}
+
+@keyframes mymove {
+  from {
+    background-color: rgb(178, 179, 180);
+  }
+  to {
+    background-color: rgb(136, 137, 138);
+  }
 }
 
 .right-side {
@@ -97,9 +110,8 @@
 
 .close-amount-field {
   position: absolute;
-  top: -30px;
-  left: -35px;
-  color: red;
+  top: 0;
+  right: 0;
   cursor: pointer;
 }
 
@@ -138,8 +150,32 @@
   color: white;
 }
 
+.submitFields:disabled {
+  cursor: not-allowed;
+}
+
 .end {
   font-size: 12px;
   color: red;
   font-weight: bold;
+}
+
+.errorbid {
+  padding: 10px;
+  background-color: rgb(236, 62, 62);
+  border-radius: 10px;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 20px;
+}
+
+.successbid {
+  padding: 10px;
+  background-color: rgb(28, 173, 47);
+  border-radius: 10px;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 20px;
 }

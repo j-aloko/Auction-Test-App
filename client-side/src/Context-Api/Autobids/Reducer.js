@@ -37,6 +37,27 @@ export const autoBidReducer = (state, action) => {
         error: true,
       };
 
+    case "UPDATE_AUTOBID_START":
+      return {
+        ...state,
+        isFetching: true,
+        error: false,
+      };
+    case "UPDATE_AUTOBID_SUCCESS":
+      return {
+        autoBids: state.autoBids.map(
+          (autobid) => autobid._id === action.payload._id && action.payload
+        ),
+        isFetching: false,
+        error: false,
+      };
+    case "UPDATE_AUTOBID_FAILURE":
+      return {
+        ...state,
+        isFetching: false,
+        error: true,
+      };
+
     default:
       return { ...state };
   }

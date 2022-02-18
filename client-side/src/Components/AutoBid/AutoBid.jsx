@@ -1,18 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { saveAutoBids } from "../../Api-Calls/AutoBid";
 import "./AutoBid.css";
+import { autoBidContext } from "./../../Context-Api/Autobids/Context";
+import { useNavigate, useLocation } from "react-router-dom";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function AutoBid() {
   const user = JSON.parse(localStorage.getItem("user")); //get user credentials from localStorage
-  const [autoBid, setAutoBid] = useState({ fullname: user?.fullname });
+  const [autoBid, setAutoBid] = useState({
+    fullname: user?.fullname,
+    status: true,
+  });
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [errorr, setErrorr] = useState(false);
+
+  const location = useLocation();
+  const redirectPath = location.state;
+
+  //auto bid context
+
+  const { dispatch, error } = useContext(autoBidContext);
+
+  // get configuration values
 
   const handleChange = (e) => {
     const value = e.target.value;
     setAutoBid({ ...autoBid, [e.target.name]: value });
   };
 
+  //save auto bids in our database
+
   const saveAutoBid = (e) => {
     e.preventDefault();
-    console.log(autoBid);
+    setLoading(true);
+    saveAutoBids(dispatch, autoBid); //Configure a new autobid
+    if (!error) {
+      setSuccess(true);
+      setErrorr(false);
+      setLoading(false);
+      setTimeout(() => {
+        navigate("/product-details/" + redirectPath); // redirect back to product details page after 1 second
+      }, 2000);
+    } else {
+      setSuccess(false);
+      setErrorr(true);
+      setLoading(false);
+    }
   };
 
   return (
@@ -55,8 +90,20 @@ function AutoBid() {
           </div>
         </div>
         <button className="save-configuration" onClick={saveAutoBid}>
-          Save
+          {loading ? (
+            <CircularProgress
+              color="success"
+              style={{ backgroundColor: "transparent" }}
+            />
+          ) : (
+            "Save"
+          )}
         </button>
+        {success && (
+          <span className="successconfig">Configuration Successful</span>
+        )}
+
+        {errorr && <span className="errorconfig">Configuration failed</span>}
       </div>
     </div>
   );

@@ -20,18 +20,6 @@ export const getProducts = async (dispatch) => {
   }
 };
 
-//get single product
-
-export const getProduct = async (dispatch, id) => {
-  dispatch(getProductsStart());
-  try {
-    const res = await axiosInstance.get("products/find/" + id);
-    dispatch(getProductsSuccess(res.data));
-  } catch (error) {
-    dispatch(getProductsFailure());
-  }
-};
-
 //update User
 
 export const updateProduct = async (dispatch, id, values) => {

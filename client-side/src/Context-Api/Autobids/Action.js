@@ -26,3 +26,18 @@ export const createAutoBidSuccess = (product) => ({
 export const createAutoBidFailure = () => ({
   type: "CREATE_AUTOBID_FAILURE",
 });
+
+//UPDATE PRODUCTS
+
+export const updateAutoBidStart = () => ({
+  type: "UPDATE_AUTOBID_START",
+});
+
+export const updateAutoBidSuccess = (autobid) => ({
+  type: "UPDATE_AUTOBID_SUCCESS",
+  payload: autobid,
+});
+
+export const updateAutoBidFailure = () => ({
+  type: "UPDATE_AUTOBID_FAILURE",
+});

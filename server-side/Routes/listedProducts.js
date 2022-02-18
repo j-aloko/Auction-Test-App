@@ -57,7 +57,7 @@ router.get("/", async (req, res) => {
 router.put("/bid/:id", async (req, res) => {
   try {
     const listedProduct = await ListedProducts.findById(req.params.id);
-    await listedProduct.updateOne({ $push: { bidders: req.body.values } });
+    await listedProduct.updateOne({ $push: { bidders: req.body } });
     res.status(200).json("bid placed successfully");
   } catch (error) {
     res.status(500).json(error);

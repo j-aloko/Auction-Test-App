@@ -5,12 +5,15 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ProductsContextProvider } from "./Context-Api/Products/Context";
 import { AutoBidsContextProvider } from "./Context-Api/Autobids/Context";
+import { ProductContextProvider } from "./Context-Api/SingleProduct/Context";
 
 ReactDOM.render(
   <React.StrictMode>
     <ProductsContextProvider>
       <AutoBidsContextProvider>
-        <App />
+        <ProductContextProvider>
+          <App />
+        </ProductContextProvider>
       </AutoBidsContextProvider>
     </ProductsContextProvider>
   </React.StrictMode>,

@@ -5,6 +5,9 @@ import {
   createAutoBidStart,
   createAutoBidSuccess,
   createAutoBidFailure,
+  updateAutoBidStart,
+  updateAutoBidSuccess,
+  updateAutoBidFailure,
 } from "./../Context-Api/Autobids/Action";
 import axiosInstance from "./../axios";
 
@@ -29,5 +32,19 @@ export const saveAutoBids = async (dispatch, values) => {
     dispatch(createAutoBidSuccess(res.data));
   } catch (error) {
     dispatch(createAutoBidFailure());
+  }
+};
+
+//update Array of productIds in AutoBid Schema
+
+export const updateAutoBid = async (dispatch, id, value) => {
+  dispatch(updateAutoBidStart());
+  try {
+    const res = await axiosInstance.put("autobids/update/" + id, {
+      productId: value,
+    });
+    dispatch(updateAutoBidSuccess(res.data));
+  } catch (error) {
+    dispatch(updateAutoBidFailure());
   }
 };

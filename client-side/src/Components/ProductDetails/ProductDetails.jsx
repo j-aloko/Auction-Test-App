@@ -1,20 +1,54 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./ProductDetails.css";
-import { Link, useLocation } from "react-router-dom";
-import { products } from "../../DummyData";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import { productContext } from "./../../Context-Api/SingleProduct/Context";
+import { getProduct } from "./../../Api-Calls/product";
+import { updateProduct } from "../../Api-Calls/Products";
+import { updateAutoBid } from "./../../Api-Calls/AutoBid";
+import { productsContext } from "./../../Context-Api/Products/Context";
+import CircularProgress from "@mui/material/CircularProgress";
+import { autoBidContext } from "./../../Context-Api/Autobids/Context";
+import { getAutoBids } from "./../../Api-Calls/AutoBid";
 
 //Timer implementation
 
 function ProductDetails() {
-  const [product, setProduct] = useState({});
   const [currentbid, setCurrentBid] = useState({});
   const [endDate, setEndDate] = useState(100000);
   const [displayAmountInput, setDisplayAmountInput] = useState(false);
-  const [disable, setDisable] = useState(false);
   const user = JSON.parse(localStorage.getItem("user")); //get user credentials from localStorage
   const [bidder, setBidder] = useState({ fullname: user?.fullname });
+  const { product, dispatch } = useContext(productContext);
+  const { dispatch: productsDispatch } = useContext(productsContext);
+  const [loading, setLoading] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const { autoBids, dispatch: autobidDispatch } = useContext(autoBidContext);
+  const [autobid, setAutoBid] = useState({});
+
+  // persisting product data across this component
+  //We start off by accessing the product id in the window url of this location
+
+  const location = useLocation();
+  const productId = location.pathname.split("/")[2];
+
+  // now we find the specific product associated with the productId
+
+  useEffect(() => {
+    getProduct(dispatch, productId);
+  }, [productId, dispatch]);
+
+  //find the current bid
+
+  useEffect(() => {
+    if (product?.bidders?.length > 0) {
+      setCurrentBid(product?.bidders.reverse()[0]); //reverse the array of bidders and grab the first index
+    } else {
+      setCurrentBid({ amount: 0 });
+    }
+  }, [product?.bidders]);
 
   //Timer Implementation
 
@@ -55,26 +89,6 @@ function ProductDetails() {
   const days = Math.ceil(remainingTime / daySeconds);
   const daysDuration = days * daySeconds;
 
-  // persisting product data across this component
-  //We start off by accessing the product id in the window url of this location
-
-  const location = useLocation();
-  const productId = location.pathname.split("/")[2];
-
-  // now we find the specific product associated with the productId
-
-  useEffect(() => {
-    setProduct(products?.find((product) => product.id === parseInt(productId)));
-  }, [productId]);
-
-  //find the current bid
-
-  useEffect(() => {
-    if (product?.bidders) {
-      setCurrentBid(product?.bidders.reverse()[0]); //reverse the array of bidders and grab the first index
-    }
-  }, [product?.bidders]);
-
   //Implementing placing bid functionality
 
   const handleBid = (e) => {
@@ -89,9 +103,71 @@ function ProductDetails() {
 
   const submitBid = (e) => {
     e.preventDefault();
-    product?.bidders.push(bidder);
-    console.log(product?.bidders);
+    setLoading(true);
+    const bidders = bidder;
+    if (
+      bidders.amount > product?.minimumBid &&
+      bidders.amount > currentbid?.amount
+    ) {
+      updateProduct(productsDispatch, productId, bidders);
+      setLoading(false);
+      setFailed(false);
+      setSuccess(true);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    } else {
+      setFailed(true);
+      setSuccess(false);
+      setLoading(false);
+    }
   };
+
+  //fetch all autoBids immediately this component mounts
+  useEffect(() => {
+    getAutoBids(autobidDispatch);
+  }, [autobidDispatch]);
+
+  //get autobid
+  useEffect(() => {
+    setAutoBid(
+      autoBids?.find((autobid) => autobid.fullname === user?.fullname)
+    );
+  }, [autoBids, user?.fullname]);
+
+  //Navigate to auto bidding settings when checked
+  const navigate = useNavigate();
+
+  const handleAutoBidding = (e) => {
+    const value = e.target.value;
+    //verify that user has already configured before navigating to configuration page
+
+    if (
+      value &&
+      !autoBids?.find((autobid) => autobid.fullname === user?.fullname)
+    ) {
+      navigate("/config-auto-bid", { state: product?._id });
+    } else if (
+      value &&
+      autoBids?.find((autobid) => autobid.fullname === user?.fullname)
+    ) {
+      // enable autobid for this product and push it's Id into our productIds Array of our AutoBid Schema
+      console.log(autobid);
+      updateAutoBid(autobidDispatch, autobid?._id, product?._id);
+    }
+  };
+
+  //5secs after this component is mounted we want to verify that the product has autobid enabled
+  // if products auto bid is enabled, auto check box
+
+  /*useEffect(() => {
+    //find autoBid Json with the usersname
+    setTimeout(() => {
+      console.log(
+        autoBids?.find((autobid) => autobid.fullname === user?.fullname)
+      );
+    }, 5000);
+  }, [autoBids, user?.fullname]);*/
 
   return (
     <>
@@ -193,7 +269,7 @@ function ProductDetails() {
               </div>
             </div>
           </div>
-          <button className="place-bid" onClick={handleBid} disabled={disable}>
+          <button className="place-bid" onClick={handleBid}>
             Place a bid
           </button>
           <div className="auto-bidding">
@@ -202,7 +278,7 @@ function ProductDetails() {
               id="autoBid"
               name="autoBid"
               value={true}
-              onChange={handleChange}
+              onChange={handleAutoBidding}
             />
             <label htmlFor="autoBid">
               {" "}
@@ -224,20 +300,11 @@ function ProductDetails() {
               className="close-amount-field"
               onClick={() => setDisplayAmountInput(false)}
             >
-              <CloseIcon style={{ fontSize: 40 }} />
+              <CloseIcon style={{ fontSize: 30 }} />
             </div>
             <div className="input-amount-wrapper">
               <h2 className="required-fields">*Required fields</h2>
               <form action="" className="required-form">
-                <input
-                  type="number"
-                  className="required-input"
-                  placeholder="Enter your budget"
-                  required
-                  name="budget"
-                  id="budget"
-                  onChange={handleChange}
-                />
                 <input
                   type="number"
                   className="required-input"
@@ -247,10 +314,29 @@ function ProductDetails() {
                   id="amount"
                   onChange={handleChange}
                 />
-                <button className="submitFields" onClick={submitBid}>
-                  Submit Bid
+                <button
+                  className="submitFields"
+                  onClick={submitBid}
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <CircularProgress
+                      color="success"
+                      style={{ backgroundColor: "transparent" }}
+                    />
+                  ) : (
+                    "Submit Bid"
+                  )}
                 </button>
               </form>
+              {failed && (
+                <span className="errorbid">
+                  Amount must exceed the minimum bid & Current bid
+                </span>
+              )}
+              {success && (
+                <span className="successbid">Bid placed successfully</span>
+              )}
             </div>
           </div>
         )}
