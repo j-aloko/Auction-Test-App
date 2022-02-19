@@ -7,3 +7,10 @@ body {
   scrollbar-color: rgb(53, 52, 52) white;
   overflow-y: hidden;
 }
+
+@media only screen and (max-width: 500px) {
+  body {
+    overflow-y: scroll;
+    scrollbar-width: thin;
+  }
+}

@@ -178,3 +178,81 @@
   font-weight: 500;
   margin-top: 20px;
 }
+
+@media only screen and (max-width: 500px) {
+  .productDetails-wrapper {
+    flex-direction: column;
+    margin-top: 80px;
+  }
+
+  .left-side {
+    flex: 1;
+    margin-left: 0;
+  }
+
+  .left-product-img {
+    width: 100%;
+    height: auto;
+    border-radius: 0;
+  }
+
+  .right-side {
+    flex: 1;
+    margin-right: 0;
+    margin: 15px;
+  }
+
+  .product-detail-description {
+    margin-top: 15px;
+    max-width: 100%;
+  }
+
+  .count-down {
+    margin-top: -5px;
+  }
+
+  .place-bid {
+    width: 300px;
+    margin-top: 10px;
+  }
+
+  .auto-bidding {
+    margin-top: 10px;
+    font-size: 15px;
+  }
+
+  .input-amount-field {
+    left: 0;
+    top: 450px;
+    z-index: 999;
+    width: 100%;
+    height: 250px;
+  }
+
+  .required-input {
+    width: 100%;
+    margin-top: 15px;
+    font-size: 16px;
+  }
+
+  .submitFields {
+    margin-top: 15px;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  .errorbid {
+    font-size: 12px;
+    margin-top: 10px;
+  }
+
+  .successbid {
+    font-size: 12px;
+    margin-top: 10px;
+  }
+
+  .required-fields {
+    font-size: 16px;
+  }
+}

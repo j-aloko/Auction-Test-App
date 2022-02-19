@@ -78,7 +78,7 @@
 
 .percentage {
   position: absolute;
-  left: 320px;
+  left: 295px;
   z-index: 2;
 }
 
@@ -89,7 +89,6 @@
   border-radius: 5px;
   background-color: rgb(190, 188, 188);
   outline: none;
-  text-align: center;
 }
 
 .save-configuration {
@@ -126,4 +125,15 @@
   font-weight: 500;
   margin-top: 30px;
   text-align: center;
+}
+
+@media only screen and (max-width: 500px) {
+  .auto-bid-wrapper {
+    margin-left: 0;
+    margin: 20px;
+  }
+
+  .configure-auto-bid {
+    font-size: 25px;
+  }
 }

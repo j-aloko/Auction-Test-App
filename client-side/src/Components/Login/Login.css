@@ -106,3 +106,35 @@
   background-color: rgb(219, 222, 223);
   cursor: pointer;
 }
+
+.error {
+  color: red;
+  font-size: 15px;
+}
+
+@media only screen and (max-width: 500px) {
+  .login-Container {
+    max-width: auto;
+    height: auto;
+  }
+
+  .login-Wrapper {
+    border-radius: 0;
+  }
+
+  .login-Items > input {
+    width: 280px;
+  }
+
+  .login-Button {
+    width: auto;
+  }
+
+  .or {
+    font-size: 18px;
+  }
+
+  .optional-button {
+    width: auto;
+  }
+}

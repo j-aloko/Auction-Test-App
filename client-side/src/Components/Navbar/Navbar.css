@@ -82,3 +82,36 @@
   left: 120px;
   cursor: pointer;
 }
+
+@media only screen and (max-width: 500px) {
+  .navbar-Wrapper {
+    margin-top: 0;
+  }
+
+  .navbar-Left-Logo {
+    font-size: 16px;
+  }
+
+  .navbar-Wrapper-Right {
+    margin-top: 0;
+  }
+
+  .user-img {
+    display: none;
+  }
+
+  .username {
+    font-size: 16px;
+  }
+
+  .logout {
+    font-size: 15px;
+  }
+
+  .notification-alert {
+    right: 0;
+    height: 150px;
+    width: 100%;
+    border-radius: 0;
+  }
+}
