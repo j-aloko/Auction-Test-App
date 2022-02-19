@@ -60,6 +60,7 @@ A user can configure a maximum amount and a percentage threshold, i.e., a percen
 * Initializing express server
 * Connecting to MonogoDB
 * Importing all third party libraries and configuring routes
+* For Routing, see server-side/Routes
 
 ![Screenshot (81)](https://user-images.githubusercontent.com/93955657/154769720-0cf0278f-4b84-49f4-bba1-1bc9197d2684.png)
 
@@ -124,11 +125,13 @@ Displays notification alert
 
 
 
-## Enable Auto Bid
+## Enable Auto Bid Check Box
 
-* If checked and auto-bid configuration does not exist for the user?
-* User is redirected to the auto-bid configuration page
-* After saving configuration, User is redirected back to the product detail page
+* If checked , the bot verifies that auto-bid is configured for the User
+* If auto-bid is configured, 
+* The check box thicks blue, indicating auto-bid is configured
+* Else if auto-bid is not configured, User is redirected to the auto-bid configuration settings page
+* After setting and saving configuration, User is redirected back to the product detail page where User can check the box
 
 
 ![Screenshot (96)](https://user-images.githubusercontent.com/93955657/154775218-5b1b5e06-500c-4873-8b8b-d7ed01547271.png)
@@ -136,6 +139,12 @@ Displays notification alert
 
 
 ## Auto Bidding Configuration Page
+
+### Attributes
+
+* Maximum bid amount
+* percentage of the maximum bid amount at which auto-bidding stops and user gets notified
+
 
 
 ![Screenshot (89)](https://user-images.githubusercontent.com/93955657/154771261-18ba7925-0ba0-4e11-b189-3d8961123d6e.png)
@@ -152,7 +161,7 @@ Displays notification alert
 
 ### Whenever User2 places a bid,
 
-* The bot makes a GET request to our database and fetches all configurations
+* The bot makes a GET request to our database and fetches all configurations/Autobids
 * Then it filters User2's configuration out of the response
 * The bot iterates through the result and verifies that User1 has "deductible" left or "deductible" > 0
 
