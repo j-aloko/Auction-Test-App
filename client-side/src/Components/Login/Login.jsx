@@ -70,7 +70,7 @@ function Login() {
           <div className="login-Items">
             <input
               type="password"
-              placeholder="Password"
+              placeholder="Dummy password"
               id="password"
               name="password"
               onBlur={formik.handleBlur}
