@@ -121,7 +121,7 @@ function ProductDetails({ socket }) {
       parseInt(bidders.amount) > product?.minimumBid && //if amount bid is greater than minimum bid likewise than current bid,
       parseInt(bidders.amount) > currentbid?.amount
     ) {
-      updateProduct(productsDispatch, productId, bidders); //update array of bidders in the product schema
+      updateProduct(productsDispatch, product?._id, bidders); //update array of bidders in the product schema
 
       // Automatic bidding algorithm executes 3 seconds after the bid is submitted
 
@@ -129,37 +129,38 @@ function ProductDetails({ socket }) {
         autoBids
           ?.filter((autoBid) => autoBid.fullname !== user?.fullname)
           .forEach((item) => {
-            if (item?.deductible !== 0) {
-              if (
-                item?.productIds?.includes(product?._id) &&
-                item?.deductible > 0
-              ) {
-                const values = {
-                  fullname: item?.fullname,
-                  amount: parseInt(bidders?.amount) + 1,
-                };
-                updateProduct(productsDispatch, productId, values);
-                const reduction = {
-                  deductible: item?.deductible - 1,
-                  amount: item?.amount - 1,
-                };
-                updateAutoBidConfig(productsDispatch, item?._id, reduction);
-              }
-            } else {
+            if (
+              item?.productIds?.includes(product?._id) &&
+              item?.deductible > 0
+            ) {
+              const values = {
+                fullname: item?.fullname,
+                amount: parseInt(bidders?.amount) + 1,
+              };
+              updateProduct(productsDispatch, product?._id, values);
+              const reduction = {
+                deductible: item?.deductible - 1,
+                amount: item?.amount - 1,
+              };
+              updateAutoBidConfig(productsDispatch, item?._id, reduction);
+            } else if (
+              item?.productIds?.includes(product?._id) &&
+              item?.deductible <= 0
+            ) {
               socket?.emit("notification", {
                 fullname: item?.fullname,
                 message: `Dear ${item?.fullname} your have exhausted your reserved maximum bid amount.`,
               });
             }
           });
-      }, 3000);
+      }, 4000);
 
       setTimeout(() => {
         setLoading(false);
         setFailed(false);
         setSuccess(true);
         window.location.reload();
-      }, 5000);
+      }, 6000);
     } else {
       setFailed(true);
       setSuccess(false);
@@ -192,7 +193,7 @@ function ProductDetails({ socket }) {
       value &&
       autoBids?.find((autobid) => autobid.fullname === user?.fullname) // esle enable auto bid and checkbox
     ) {
-      setChecked(false);
+      setChecked(!checked);
 
       // enable autobid for this product and push it's Id into our productIds Array of our AutoBid Schema
       updateAutoBid(autobidDispatch, autobid?._id, product?._id);
@@ -337,13 +338,13 @@ function ProductDetails({ socket }) {
               <CloseIcon style={{ fontSize: 30 }} />
             </div>
             <div className="input-amount-wrapper">
-              <h2 className="required-fields">*Required fields</h2>
+              <h2 className="required-fields">Bid big win big 😉 </h2>
               <form action="" className="required-form">
                 <input
                   type="number"
                   className="required-input"
                   placeholder="Enter amount to bid"
-                  required
+                  required={true}
                   name="amount"
                   id="amount"
                   onChange={handleChange}

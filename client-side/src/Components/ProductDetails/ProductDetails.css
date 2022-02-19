@@ -21,7 +21,6 @@
   width: 95%;
   height: 80%;
   object-fit: cover;
-  border: none;
   border-radius: 5px;
   background: rgb(178, 179, 180);
   animation: mymove 2s infinite;
@@ -59,7 +58,7 @@
 }
 
 .last-bid-amount {
-  margin-top: -10px;
+  margin-top: -5px;
   font-weight: bold;
 }
 
@@ -69,7 +68,7 @@
 }
 
 .exact-time {
-  margin-top: -15px;
+  margin-top: -5px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -81,7 +80,7 @@
 
 .place-bid {
   width: 300px;
-  margin-top: 20px;
+  margin-top: 30px;
   padding: 10px;
   border: none;
   border-radius: 10px;

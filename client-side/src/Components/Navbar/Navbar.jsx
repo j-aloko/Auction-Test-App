@@ -30,6 +30,7 @@ function Navbar({ socket }) {
   const clearNotifications = (e) => {
     e.preventDefault();
     setNotification();
+    setShowNotification(!notification);
   };
 
   return (
@@ -37,7 +38,7 @@ function Navbar({ socket }) {
       <div className="navbar-Wrapper">
         <Link to="/" className="links">
           <div className="navbar-Wrapper-Left">
-            <h1 className="navbar-Left-Logo">Logo</h1>
+            <h1 className="navbar-Left-Logo">Bidify</h1>
           </div>
         </Link>
         <div className="navbar-Wrapper-Right">
@@ -68,7 +69,7 @@ function Navbar({ socket }) {
           <div className="navbar-Right-Avatar">
             <span className="username">{user?.fullname}</span>
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
+              src={user?.img || "/assets/avatar.png"}
               alt=""
               className="user-img"
             />

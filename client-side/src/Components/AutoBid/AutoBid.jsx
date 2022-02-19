@@ -59,7 +59,7 @@ function AutoBid() {
       <div className="auto-bid-wrapper">
         <div className="auto-bid-config-titles">
           <span className="auto-bid-settings">SETTINGS</span>
-          <h1 className="configure-auto-bid">Configure the Auto-bidding</h1>
+          <h1 className="configure-auto-bid">Configure Auto-bidding</h1>
         </div>
         <div className="bid-amount-wrapper">
           <h4 className="maximum-bid-subtitle">Maximum bid amount</h4>
