@@ -24,6 +24,7 @@ Build a high-performance, smooth-running online bidding platform for convenient 
 
 * Axios - Making HTTP requests
 * Formik and yup - form validation
+* Material UI - Icons
 * React countdown timer - Implementing a countdown for each listed item
 * React router dom - routing in between components
 * Socket.io - real-time notification alert whenever a user reaches auto-bidding limit
