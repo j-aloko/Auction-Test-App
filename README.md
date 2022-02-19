@@ -88,12 +88,17 @@ This login page has 3 login options;
 
 Once a user logs in, the users information is stored in the localStorage and later accessed in multiple components with localStorage.getItem() method
 
+
+
 ![Screenshot (91)](https://user-images.githubusercontent.com/93955657/154771697-9b753df2-3a5c-4501-81d1-7b19472cb3f8.png)
 
 
 
 
 ## Homepage
+
+Displays items in auction
+
 
 ![Screenshot (84)](https://user-images.githubusercontent.com/93955657/154770438-3a4a9f51-1e39-4dfd-8d49-1cf0ca330324.png)
 
@@ -103,12 +108,14 @@ Once a user logs in, the users information is stored in the localStorage and lat
 
 Displays notification alert
 
+
 ![Screenshot (98)](https://user-images.githubusercontent.com/93955657/154775720-185e7917-ae78-42df-8a5a-3800f90c9b4e.png)
 
 
 
 
 ## Product Detail Page
+
 
 ![Screenshot (87)](https://user-images.githubusercontent.com/93955657/154771053-524acb53-bc24-4e33-a902-e68b850bf9c0.png)
 
@@ -175,6 +182,12 @@ Displays notification alert
 ### Else if deductible < 0
 
 * The bot stops auto bidding and sends a notification to User1
+
+
+
+# Deployment
+
+Application is hosted by heroku at (https://bidify-auction-hub.herokuapp.com/)
 
 
 
