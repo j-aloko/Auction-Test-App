@@ -187,7 +187,7 @@ Displays notification alert
 
 # Deployment
 
-Application is hosted by heroku at (https://bidify-auction-hub.herokuapp.com/)
+Application is hosted by heroku at https://bidify-auction-hub.herokuapp.com/
 
 
 
