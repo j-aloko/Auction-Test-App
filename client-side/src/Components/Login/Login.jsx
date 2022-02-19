@@ -6,7 +6,6 @@ import * as Yup from "yup";
 import CircularProgress from "@mui/material/CircularProgress";
 
 const validationSchema = Yup.object({
-  email: Yup.string().email().required("Please Enter your Email"),
   password: Yup.string().required("Please Enter your password"),
   fullname: Yup.string().required("Please Enter your fullname"),
 });
@@ -16,12 +15,8 @@ function Login() {
 
   const formik = useFormik({
     initialValues: {
-      email: "",
       password: "",
       fullname: "",
-      budget: 20000,
-      autoBid: false,
-      notifyAt: "50%",
     },
     onSubmit: (values) => {
       setLoading(true);
@@ -32,9 +27,30 @@ function Login() {
     validationSchema,
   });
 
+  //handling optional login
+
+  const handleOptionalLogin = (type) => {
+    if (type === "jon") {
+      const values = {
+        fullname: "Jon Snow",
+        password: 43421,
+        img: "/assets/jon.png",
+      };
+      localStorage.setItem("user", JSON.stringify(values));
+      window.location.replace("/");
+    } else {
+      const values = {
+        fullname: "Jane Doe",
+        password: 43421,
+        img: "/assets/jane.jpg",
+      };
+      localStorage.setItem("user", JSON.stringify(values));
+      window.location.replace("/");
+    }
+  };
+
   return (
     <div className="login-Container">
-      <h1 className="login-title">Login with dummy credentials</h1>
       <div className="login-Wrapper">
         <form className="login-Form" onSubmit={formik.handleSubmit}>
           <div className="login-Items">
@@ -49,20 +65,6 @@ function Login() {
             />
             {formik.touched.fullname && formik.errors.fullname ? (
               <div className="error">{formik.errors.fullname}</div>
-            ) : null}
-          </div>
-          <div className="login-Items">
-            <input
-              type="email"
-              placeholder="Email"
-              id="email"
-              name="email"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              value={formik.values.email}
-            />
-            {formik.touched.email && formik.errors.email ? (
-              <div className="error">{formik.errors.email}</div>
             ) : null}
           </div>
           <div className="login-Items">
@@ -90,6 +92,21 @@ function Login() {
             )}
           </button>
         </form>
+        <h2 className="or">OR</h2>
+        <div className="optional-login-buttons">
+          <span
+            className="optional-button"
+            onClick={() => handleOptionalLogin("jon")}
+          >
+            Login as Jon Snow
+          </span>
+          <span
+            className="optional-button"
+            onClick={() => handleOptionalLogin("jane")}
+          >
+            Login as Jane Doe
+          </span>
+        </div>
       </div>
     </div>
   );
