@@ -20,6 +20,11 @@ Build a high-performance, smooth-running online bidding platform for convenient 
 * Express
 
 
+# State Management
+
+Context-Api
+
+
 # Libraries
 
 * Axios - Making HTTP requests
@@ -110,7 +115,8 @@ Displays items in auction
 Displays notification alert
 
 
-![Screenshot (98)](https://user-images.githubusercontent.com/93955657/154775720-185e7917-ae78-42df-8a5a-3800f90c9b4e.png)
+![Screenshot (99)](https://user-images.githubusercontent.com/93955657/154836679-f1e7cbcd-3f65-4924-81cb-86e882ea7560.png)
+
 
 
 
@@ -170,8 +176,10 @@ Displays notification alert
 ### Whenever User2 places a bid,
 
 * The bot makes a GET request to our database and fetches all configurations/Autobids
-* Then it filters User2's configuration out of the response
-* The bot iterates through the result and verifies that User1 has "deductible" left or "deductible" > 0
+
+* Then it filters User2's configuration out of the response. This prevents the user from outbidding his own bid
+
+* The bot iterates through the result and verifies that User1 has some "deductible" left or "deductible" > 0
 
 ## NB: Deductible = Minimum percentage configured X Maximum amount configured
 
