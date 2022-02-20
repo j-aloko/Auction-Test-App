@@ -176,7 +176,7 @@ Displays notification alert
 
 * The bot makes a GET request to our database and fetches all configurations/Autobids
 
-* Then it filters User2's configuration out of the response. This prevents the user from outbidding his own bid
+* Then it filters User2's configuration out of the response. This prevents User2 from outbidding his own bid
 
 * The bot iterates through the result and verifies that User1 has some "deductible" left or "deductible" > 0
 
