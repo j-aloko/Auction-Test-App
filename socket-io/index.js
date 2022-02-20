@@ -4,10 +4,14 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const io = new Server({
-  cors: { origin: "http://localhost:3000" },
+  cors: {
+    origin: [
+      "https://bidify-auction-hub.herokuapp.com",
+      "http://localhost:3000",
+    ],
+  },
 });
 
-//if connection is in effect lets receive all Users from the client side and emit back their ids and socketids
 io.on("connection", (socket) => {
   console.log("User connected");
 

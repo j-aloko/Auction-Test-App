@@ -29,7 +29,7 @@ router.get("/", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   try {
-    const updatedAutobid = await AutoBids.findOneAndUpdate(
+    const updatedAutobid = await AutoBids.findByIdAndUpdate(
       req.params.id,
       {
         $set: req.body,

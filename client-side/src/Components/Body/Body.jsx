@@ -5,7 +5,7 @@ import { productsContext } from "./../../Context-Api/Products/Context";
 import { getProducts } from "./../../Api-Calls/Products";
 
 function Body() {
-  //fetch all listed items from context when this component mounts
+  //fetch all listed items from context when this component is mounted
 
   const { dispatch, products } = useContext(productsContext);
 
@@ -17,7 +17,7 @@ function Body() {
     <div className="body">
       <div className="body-wrapper">
         {products?.map((product) => (
-          <Product key={product._id} product={product} />
+          <Product key={product?._id} product={product} />
         ))}
       </div>
     </div>

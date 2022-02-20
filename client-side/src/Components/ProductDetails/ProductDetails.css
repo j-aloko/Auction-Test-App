@@ -23,7 +23,7 @@
   object-fit: cover;
   border-radius: 5px;
   background: rgb(178, 179, 180);
-  animation: mymove 2s infinite;
+  animation: mymove 1s infinite;
 }
 
 @keyframes mymove {
@@ -31,7 +31,7 @@
     background-color: rgb(178, 179, 180);
   }
   to {
-    background-color: rgb(136, 137, 138);
+    background-color: rgb(117, 118, 119);
   }
 }
 

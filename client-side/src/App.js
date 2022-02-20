@@ -15,7 +15,9 @@ function App() {
 
   //on app render, initilize socket connection
   useEffect(() => {
-    setSocket(io("ws://localhost:5000", { transports: ["websocket"] }));
+    setSocket(
+      io("https://bidify-socket.herokuapp.com/", { transports: ["websocket"] })
+    );
   }, []);
 
   return (

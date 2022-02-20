@@ -10,7 +10,10 @@ function Product({ product }) {
         <div className="product-info">
           <h3 className="product-name">{product?.title}</h3>
           <span className="product-description">
-            Lorem ipsum dolor sit amet
+            {product?.description.length > 20
+              ? product.description.slice(0, 20)
+              : product.description}
+            ....
           </span>
         </div>
         <Link className="links" to={`product-details/${product._id}`}>

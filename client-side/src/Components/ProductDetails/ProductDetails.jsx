@@ -123,8 +123,7 @@ function ProductDetails({ socket }) {
     ) {
       updateProduct(productsDispatch, product?._id, bidders); //update array of bidders in the product schema
 
-      // Automatic bidding algorithm executes 3 seconds after the bid is submitted
-
+      // Automatic bidding algorithm/bot executes 2 seconds after the bid is submitted
       setTimeout(() => {
         autoBids
           ?.filter((autoBid) => autoBid.fullname !== user?.fullname)
@@ -153,14 +152,14 @@ function ProductDetails({ socket }) {
               });
             }
           });
-      }, 4000);
+      }, 2000);
 
       setTimeout(() => {
         setLoading(false);
         setFailed(false);
         setSuccess(true);
         window.location.reload();
-      }, 6000);
+      }, 5000);
     } else {
       setFailed(true);
       setSuccess(false);
