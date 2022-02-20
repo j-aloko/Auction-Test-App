@@ -20,10 +20,16 @@ Build a high-performance, smooth-running online bidding platform for convenient 
 * Express
 
 
+# State Management
+
+Context-Api
+
+
 # Libraries
 
 * Axios - Making HTTP requests
 * Formik and yup - form validation
+* Material UI - Icons
 * React countdown timer - Implementing a countdown for each listed item
 * React router dom - routing in between components
 * Socket.io - real-time notification alert whenever a user reaches auto-bidding limit
@@ -60,6 +66,7 @@ A user can configure a maximum amount and a percentage threshold, i.e., a percen
 * Initializing express server
 * Connecting to MonogoDB
 * Importing all third party libraries and configuring routes
+* For Routing, see server-side/Routes
 
 ![Screenshot (81)](https://user-images.githubusercontent.com/93955657/154769720-0cf0278f-4b84-49f4-bba1-1bc9197d2684.png)
 
@@ -87,12 +94,17 @@ This login page has 3 login options;
 
 Once a user logs in, the users information is stored in the localStorage and later accessed in multiple components with localStorage.getItem() method
 
+
+
 ![Screenshot (91)](https://user-images.githubusercontent.com/93955657/154771697-9b753df2-3a5c-4501-81d1-7b19472cb3f8.png)
 
 
 
 
 ## Homepage
+
+Displays items in auction
+
 
 ![Screenshot (84)](https://user-images.githubusercontent.com/93955657/154770438-3a4a9f51-1e39-4dfd-8d49-1cf0ca330324.png)
 
@@ -102,12 +114,15 @@ Once a user logs in, the users information is stored in the localStorage and lat
 
 Displays notification alert
 
-![Screenshot (98)](https://user-images.githubusercontent.com/93955657/154775720-185e7917-ae78-42df-8a5a-3800f90c9b4e.png)
+
+![Screenshot (99)](https://user-images.githubusercontent.com/93955657/154836679-f1e7cbcd-3f65-4924-81cb-86e882ea7560.png)
+
 
 
 
 
 ## Product Detail Page
+
 
 ![Screenshot (87)](https://user-images.githubusercontent.com/93955657/154771053-524acb53-bc24-4e33-a902-e68b850bf9c0.png)
 
@@ -124,11 +139,13 @@ Displays notification alert
 
 
 
-## Enable Auto Bid
+## Enable Auto Bid Check Box
 
-* If checked and auto-bid configuration does not exist for the user?
-* User is redirected to the auto-bid configuration page
-* After saving configuration, User is redirected back to the product detail page
+* If checked , the bot verifies that auto-bid is configured for the User
+* If auto-bid is configured, 
+* The check box thicks blue, indicating auto-bid is configured
+* Else if auto-bid is not configured, User is redirected to the auto-bid configuration settings page
+* After setting and saving configuration, User is redirected back to the product detail page where User can check the box
 
 
 ![Screenshot (96)](https://user-images.githubusercontent.com/93955657/154775218-5b1b5e06-500c-4873-8b8b-d7ed01547271.png)
@@ -136,6 +153,12 @@ Displays notification alert
 
 
 ## Auto Bidding Configuration Page
+
+### Attributes
+
+* Maximum bid amount
+* percentage of the maximum bid amount at which auto-bidding stops and user gets notified
+
 
 
 ![Screenshot (89)](https://user-images.githubusercontent.com/93955657/154771261-18ba7925-0ba0-4e11-b189-3d8961123d6e.png)
@@ -152,9 +175,11 @@ Displays notification alert
 
 ### Whenever User2 places a bid,
 
-* The bot makes a GET request to our database and fetches all configurations
-* Then it filters User2's configuration out of the response
-* The bot iterates through the result and verifies that User1 has "deductible" left or "deductible" > 0
+* The bot makes a GET request to our database and fetches all configurations/Autobids
+
+* Then it filters User2's configuration out of the response. This prevents the user from outbidding his own bid
+
+* The bot iterates through the result and verifies that User1 has some "deductible" left or "deductible" > 0
 
 ## NB: Deductible = Minimum percentage configured X Maximum amount configured
 
@@ -166,6 +191,12 @@ Displays notification alert
 ### Else if deductible < 0
 
 * The bot stops auto bidding and sends a notification to User1
+
+
+
+# Deployment
+
+Application is hosted by heroku at https://bidify-auction-hub.herokuapp.com/
 
 
 
