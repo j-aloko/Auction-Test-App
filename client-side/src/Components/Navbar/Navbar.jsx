@@ -8,6 +8,7 @@ function Navbar({ socket }) {
   const user = JSON.parse(localStorage.getItem("user"));
   const [showNotification, setShowNotification] = useState(false);
   const [notification, setNotification] = useState();
+  const [color, setColor] = useState(false);
 
   // navigate to the login page after logout
 
@@ -33,8 +34,19 @@ function Navbar({ socket }) {
     setShowNotification(!notification);
   };
 
+  //change navbar color when Y axis is >= 60px
+  const changeColor = () => {
+    if (window.scrollY >= 60) {
+      setColor(true);
+    } else {
+      setColor(false);
+    }
+  };
+
+  window.addEventListener("scroll", changeColor);
+
   return (
-    <div className="navbar">
+    <div className={color ? "navbar color" : "navbar"}>
       <div className="navbar-Wrapper">
         <Link to="/" className="links">
           <div className="navbar-Wrapper-Left">

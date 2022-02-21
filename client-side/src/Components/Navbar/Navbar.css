@@ -8,6 +8,11 @@
   z-index: 999;
 }
 
+.navbar.color {
+  background-color: rgb(50, 50, 51);
+  color: white;
+}
+
 .navbar-Wrapper {
   display: flex;
   align-items: center;

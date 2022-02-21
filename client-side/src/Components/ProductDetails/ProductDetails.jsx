@@ -27,10 +27,11 @@ function ProductDetails({ socket }) {
   const { autoBids, dispatch: autobidDispatch } = useContext(autoBidContext);
   const [autobid, setAutoBid] = useState({});
   const [checked, setChecked] = useState(false);
+  const [redirecting, setRedirecting] = useState(false);
+  const [enable, setEnable] = useState(false);
 
   // verify that the product has autobid enabled
-  // if products auto bid is enabled, show blue check box
-
+  // if products auto bid is enabled, show blue check box whenever this component mounts
   useEffect(() => {
     autoBids?.forEach((item) => {
       if (
@@ -152,14 +153,14 @@ function ProductDetails({ socket }) {
               });
             }
           });
-      }, 2000);
+      }, 3000);
 
       setTimeout(() => {
         setLoading(false);
         setFailed(false);
         setSuccess(true);
         window.location.reload();
-      }, 5000);
+      }, 6000);
     } else {
       setFailed(true);
       setSuccess(false);
@@ -187,23 +188,38 @@ function ProductDetails({ socket }) {
       value &&
       !autoBids?.find((autobid) => autobid.fullname === user?.fullname) // if the current user has no configuration, redirect to configuration page
     ) {
-      navigate("/config-auto-bid", { state: product?._id });
+      setRedirecting(true);
+      setTimeout(() => {
+        navigate("/config-auto-bid", { state: product?._id });
+      }, 5000);
     } else if (
       value &&
       autoBids?.find((autobid) => autobid.fullname === user?.fullname) // esle enable auto bid and checkbox
     ) {
+      setRedirecting(false);
       setChecked(!checked);
-
-      // enable autobid for this product and push it's Id into our productIds Array of our AutoBid Schema
       updateAutoBid(autobidDispatch, autobid?._id, product?._id);
     }
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (location?.state === "checked") {
+        setEnable(true);
+      }
+    }, 3000);
+  }, [location?.state]);
+
+  const RefreshState = () => {
+    window.history.replaceState(null, "");
+    setEnable(false);
   };
 
   return (
     <>
       <div
         className={
-          displayAmountInput
+          displayAmountInput || redirecting || enable
             ? "productDetails-wrapper blur"
             : "productDetails-wrapper"
         }
@@ -328,6 +344,32 @@ function ProductDetails({ socket }) {
         </div>
       </div>
       <>
+        {redirecting && (
+          <div className="redirect-ui">
+            <div className="redirect-ui-wrapper">
+              <span className="redirect-message">
+                You do not have auto-bid configured
+              </span>
+              <span className="redirect-message">
+                Redirecting to configurations page....
+              </span>
+              <CircularProgress
+                color="secondary"
+                style={{ backgroundColor: "transparent", marginTop: "20px" }}
+              />
+            </div>
+          </div>
+        )}
+        {enable && (
+          <div className="enable-auto-bid">
+            <div className="close-amount-field" onClick={RefreshState}>
+              <CloseIcon style={{ fontSize: 30 }} />
+            </div>
+            <span className="enable-message">
+              Configuration set! Enable auto-bid now
+            </span>
+          </div>
+        )}
         {displayAmountInput && (
           <div className="input-amount-field">
             <div
@@ -338,7 +380,7 @@ function ProductDetails({ socket }) {
             </div>
             <div className="input-amount-wrapper">
               <h2 className="required-fields">Bid big win big 😉 </h2>
-              <form action="" className="required-form">
+              <form action="" className="required-form" onSubmit={submitBid}>
                 <input
                   type="number"
                   className="required-input"
@@ -350,7 +392,7 @@ function ProductDetails({ socket }) {
                 />
                 <button
                   className="submitFields"
-                  onClick={submitBid}
+                  type="submit"
                   disabled={loading}
                 >
                   {loading ? (

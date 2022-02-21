@@ -10,6 +10,11 @@
   margin-left: 50px;
 }
 
+.bid-config-form {
+  display: flex;
+  flex-direction: column;
+}
+
 .auto-bid-config-titles {
   display: flex;
   flex-direction: column;
