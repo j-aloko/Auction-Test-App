@@ -106,8 +106,7 @@ Once a user logs in, the users information is stored in the localStorage and lat
 Displays items in auction
 
 
-![Screenshot (84)](https://user-images.githubusercontent.com/93955657/154770438-3a4a9f51-1e39-4dfd-8d49-1cf0ca330324.png)
-
+![Screenshot (101)](https://user-images.githubusercontent.com/93955657/154837155-2204b2c0-6eec-419e-8d64-25dd577dab49.png)
 
 
 ## Notification Tab
@@ -177,7 +176,7 @@ Displays notification alert
 
 * The bot makes a GET request to our database and fetches all configurations/Autobids
 
-* Then it filters User2's configuration out of the response. This prevents the user from outbidding his own bid
+* Then it filters User2's configuration out of the response. This prevents User2 from outbidding his own bid
 
 * The bot iterates through the result and verifies that User1 has some "deductible" left or "deductible" > 0
 
